@@ -581,7 +581,8 @@ function smartcms_scwspd_fontend_single(){
 				<?php } ?>
 
 				<div class="scwspd_preview_content navigate_content_6 content_hide" data-content="6">
-					<span class="scwspd_preview_content_use">Render Design</span>
+					<!-- <span class="scwspd_preview_content_use">Render Design</span> -->
+					<span class="scwspd_preview_content_use">Add to Basket</span>
 						<?php 
 							do_action('addcart_button_hook');
 						?>
@@ -609,6 +610,8 @@ function smartcms_scwspd_fontend_single(){
 
 
 							//var_dump($scwspdimages);
+							$_checkImg = explode("@", $scwspdimages[0]);
+							//var_dump($_checkImg);
 							foreach($scwspdimages as $img){
 								$checkImg = explode("@", $img);
 								$dataimages = $checkImg[0];
@@ -882,7 +885,7 @@ function scwspd_admin_edit_order( $item_id, $item, $product ){
 			$ctitle = $checkImg[3];
 			$qtys = $checkImg[2];
 			
-			var_dump($checkImg);
+			//var_dump($checkImg);
 
 			$designs .= "<div class='scwspd_yourdesign_item'>";
 			$checkdataimages = explode("#", $dataimages);

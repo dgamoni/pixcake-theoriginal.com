@@ -128,6 +128,8 @@ jQuery('#navigate_back').click(function(event) {
 			jQuery(".scwspd_text_right"+checkSize).remove();
 			jQuery(".scwspd_divat_panel"+checkSize).remove();
 		});
+
+		//jQuery('.designer_enable .single_add_to_cart_button').attr("disabled","disabled");
 	//});
 	
 	function calfun(el, checkSize){
@@ -207,7 +209,7 @@ jQuery('#navigate_back').click(function(event) {
 			jQuery(".scwspd_choose_color_item_graphics").removeClass("active");
 			elthis_.addClass("active");
 			var bgurl = elthis_.find('.graphics_bg').attr('data-pat');
-			console.log(bgurl);
+			//console.log(bgurl);
 
 			//jQuery(".main_graphics_bg").remove();
 			//jQuery('.scwspd_right_item').children(".scwspd_right_item_main").append('<img class="main_graphics_bg" src="'+bgurl+'">');
@@ -274,7 +276,7 @@ jQuery('#navigate_back').click(function(event) {
 		var elthis = jQuery(this);
 		elthis.click(function(){
 			var clr = jQuery(this).find('span').text();
-			console.log(clr);
+			//console.log(clr);
 			jQuery(".scwspd_choose_color_item_text").removeClass("active");
 			elthis.addClass("active");
 			
@@ -358,7 +360,8 @@ jQuery('#navigate_back').click(function(event) {
 	});
 
 // javascript function that uploads a blob to upload.php
-function uploadBlob(blobs, id){
+function uploadBlob(blobs, proid){
+	var result="";
     // create a blob here for testing
     //var blob = new Blob(["i am a blob"]);
     var blob = blobs;
@@ -369,81 +372,39 @@ function uploadBlob(blobs, id){
         var fd = new FormData();
         fd.append('fname', 'test.txt');
         fd.append('data', event.target.result);
+        jQuery('.smartcms_content_right').css('opacity', '0.5');
         jQuery.ajax({
             type: 'POST',
             url: url+'upload.php',
             data: fd,
+            proid: proid,
             processData: false,
             contentType: false
         }).done(function(data) {
             // print the output from the upload.php script
             //console.log(data);
+            result = data;
             jQuery('.smartcms_pdf').val(data);
+             jQuery('.smartcms_content_right').css('opacity', '1');
+             //jQuery('.designer_enable .single_add_to_cart_button').removeAttr('disabled');
+              jQuery('.designer_enable .single_add_to_cart_button').trigger('click');
             //return data;
         });
+	return result;
     };      
     // trigger the read from the reader...
     reader.readAsDataURL(blob);
-
+	
 }
 
-	function renderSecondImage(){
-		//jQuery(".scwspd_right_item.active").children(".scwspd_right_item_main").children("img").css("opacity", "0");
-		html2canvas(jQuery(".smartcms_content_right"), {
-			onrendered: function(canvas2){
-				var fimage = jQuery(".smartcms_firstimage").val();
 
-				//console.log(fimage);
-				 var color = jQuery(".scwspd_choose_color_item.active").children("span").text();
-				 var title = jQuery(".scwspd_right_item.active").children(".scwspd_right_item_add.active").children("span").text();
-				 var qtys = "";
-				 
-				 // jQuery(".scwspd_qty_item").each(function(){
-					//  var label = jQuery(this).children("label").text();
-					//  var input = jQuery(this).children("input").val();
-					 
-					//  if(input){
-					// 	 if(qtys)
-					// 		 qtys += "&"+label+"#"+input;
-					// 	 else
-					// 		 qtys = label+"#"+input;
-					//  }
-				 // });
-				 jQuery(".scwspd_qty_item_radio").each(function(){
-				 	if(jQuery(this).prop("checked")){
-				 		//console.log(jQuery(this));
-				 		//console.log(jQuery(this).siblings('.scwspd_qty_radio_label').text());
-				 	  var label = jQuery(this).siblings('.scwspd_qty_radio_label').text();
-					  var input = jQuery(this).next('.scwspd_qty_item_input').val();
-					 		qtys = label+"#"+input;
+function test() {
+  var d = jQuery.Deferred();
+  setTimeout(function() { d.resolve(); }, 3000);
+  return d.promise();
+}
 
-				 	}
-				 });
-				 
-				 
-				 // var dulieu = fimage+"#"+canvas2.toDataURL("image/png")+"@"+color+"@"+qtys+"@"+title;
-				
-				 var imgData = canvas2.toDataURL("image/png",);
-					var pdf = new jsPDF('l', 'mm', [132, 132]);
-					pdf.addImage(imgData, 'PNG', 0, 0, 132, 132);
-		           var blob = pdf.output("blob");
-		           var blobURL = URL.createObjectURL(blob);
-
-		            
-
-		            uploadBlob(blob);
-		            var file_pdf = jQuery(".smartcms_pdf").val();
-
-		            var dulieu = "#"+fimage+"@"+file_pdf+"@"+qtys;
- 					//var dulieu = "#"+fimage;
-
-		            //console.log(uploadBlob(blob));
-
-		  //      var fd = new FormData();
-				// fd.append('fname', 'test.pdf');
-				// fd.append('data', blobURL);
-
-
+function updated(proid,dulieu,file_pdf,fimage,blobURL) {
 				 jQuery.ajax({
 					url: url+"helper.php",
 					data: {
@@ -456,26 +417,12 @@ function uploadBlob(blobs, id){
 					type: 'POST',
 					success: function(data){
 
-					// var imgData = canvas.toDataURL("image/png",);
-					// var pdf = new jsPDF('l', 'mm', [132, 132]);
-					// pdf.addImage(imgData, 'PNG', 0, 0, 132, 132);
-					// //pdf.save("youdesign.pdf");
-		   //         var blob = pdf.output("blob");
-		   //         var blobURL = URL.createObjectURL(blob);
-		   //         var downloadLink = document.getElementById('pdf-download-link');
-		           //downloadLink.href = blobURL;
-
 						var checkSize = jQuery(".scwspd_preview_item").size();
 						 jQuery(".scwspd_preview_items").append("<div class='scwspd_preview_item scwspd_preview_item"+checkSize+"'>"+
 							'<div class="scwspd_preview_item_left">'+
 								'<div class="scwspd_preview_item_left_first">'+
-									//"<span class='scwspd_preview_title'>"+title+"</span>"+
-									//"<span class='scwspd_preview_color' style='background: "+color+"'>"+color+"</span>"+
 								'</div>'+
 								'<div class="scwspd_preview_item_left_images">'+
-									//"<a class='scwspd_group' href='"+canvas2.toDataURL("image/png")+"'>"+
-										//"<img src='"+canvas2.toDataURL("image/png")+"'>"+
-									//"</a>"+
 									"<a class='scwspd_group' href='"+fimage+"'>"+
 										"<img src='"+fimage+"'>"+
 									"</a>"+
@@ -499,10 +446,7 @@ function uploadBlob(blobs, id){
 							 }
 						 });
 						 
-						 //jQuery(".scwspd_right_item.active").children(".scwspd_right_item_main").children("img").css("opacity", "1");
-						 //jQuery(".smartcms_content_right").css("opacity", "1");
 						 jQuery(".scwspd_right_item_add").hide();
-						 
 						 jQuery(".scwspd_group").colorbox({rel:'scwspd_group', 'photo':true});
 						 jQuery(".scwspd_preview_item").each(function(){
 							 var elthis = jQuery(this);
@@ -549,11 +493,85 @@ function uploadBlob(blobs, id){
 						 jQuery(".scwspd_image_right").css("border", "1px solid #ccc");
 					}
 				});
+			
+
+}
+//end
+
+	function renderSecondImage(){
+		//jQuery(".scwspd_right_item.active").children(".scwspd_right_item_main").children("img").css("opacity", "0");
+		html2canvas(jQuery(".smartcms_content_right"), {
+			onrendered: function(canvas2){
+				var fimage = jQuery(".smartcms_firstimage").val();
+
+				//console.log(fimage);
+				 var color = jQuery(".scwspd_choose_color_item.active").children("span").text();
+				 var title = jQuery(".scwspd_right_item.active").children(".scwspd_right_item_add.active").children("span").text();
+				 var qtys = "";
+				 
+				 // jQuery(".scwspd_qty_item").each(function(){
+					//  var label = jQuery(this).children("label").text();
+					//  var input = jQuery(this).children("input").val();
+					 
+					//  if(input){
+					// 	 if(qtys)
+					// 		 qtys += "&"+label+"#"+input;
+					// 	 else
+					// 		 qtys = label+"#"+input;
+					//  }
+				 // });
+				 jQuery(".scwspd_qty_item_radio").each(function(){
+				 	if(jQuery(this).prop("checked")){
+				 		//console.log(jQuery(this));
+				 		//console.log(jQuery(this).siblings('.scwspd_qty_radio_label').text());
+				 	  var label = jQuery(this).siblings('.scwspd_qty_radio_label').text();
+					  var input = jQuery(this).next('.scwspd_qty_item_input').val();
+					 		qtys = label+"#"+input;
+
+				 	}
+				 });
+				 
+				 
+				 // var dulieu = fimage+"#"+canvas2.toDataURL("image/png")+"@"+color+"@"+qtys+"@"+title;
+				
+				 var imgData = canvas2.toDataURL("image/png",);
+					var pdf = new jsPDF('l', 'mm', [132, 132]);
+					pdf.addImage(imgData, 'PNG', 0, 0, 132, 132);
+		           var blob = pdf.output("blob");
+		           var blobURL = URL.createObjectURL(blob);
+
+		            
+
+		            uploadBlob(blob,proid);
+		            // var file_pdf = jQuery(".smartcms_pdf").val();
+
+		            // var dulieu = "#"+fimage+"@"+file_pdf+"@"+qtys;
+ 					//var dulieu = "#"+fimage;
+
+		            //console.log(uploadBlob(blob,proid));
+		            //var data_ = uploadBlob(blob);
+
+		            
+		            var t = test().done(function() { 
+		            	console.log(jQuery(".smartcms_pdf").val());
+		            	var file_pdf = jQuery(".smartcms_pdf").val();
+		            	var dulieu = "#"+fimage+"@"+file_pdf+"@"+qtys;
+		            	updated(proid,dulieu,file_pdf,fimage,blobURL)
+		            });
+
+
+
+
+
+
 			},
 		  width: 510,
 		  height: 500
 		});
 	}
+
+
+
 	//////////////////
 	jQuery(".scwspd_group").colorbox({rel:'scwspd_group', 'photo':true});
 	jQuery(".scwspd_preview_item").each(function(){

@@ -1,6 +1,7 @@
 <?
 // pull the raw binary data from the POST array
 $data = substr($_POST['data'], strpos($_POST['data'], ",") + 1);
+$proid = $_POST["proid"];
 // decode it
 $decodedData = base64_decode($data);
 // print out the raw data, 
