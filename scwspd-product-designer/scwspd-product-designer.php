@@ -26,8 +26,12 @@ function smartcms_scwspd_install(){
 	
 	$table_name = $wpdb->prefix . 'scwspd_images';
 	$table_name_pattern = $wpdb->prefix . 'scwspd_images_pattern';
+	$table_name_graphics = $wpdb->prefix . 'scwspd_images_graphics';
+	$table_name_text = $wpdb->prefix . 'scwspd_images_text';
+
 	$table_name2 = $wpdb->prefix . 'scwspd_quantity';
 	$table_name3 = $wpdb->prefix . 'scwspd_order';
+
 	
 	$sql = "CREATE TABLE $table_name (
 		`ID` int(11) NOT NULL AUTO_INCREMENT,
@@ -46,7 +50,25 @@ function smartcms_scwspd_install(){
 		`color` varchar(255) DEFAULT NULL,
 		PRIMARY KEY (`id`)
 	) $charset_collate;";
-	
+
+	$sql_graphics = "CREATE TABLE $table_name_graphics (
+		`ID` int(11) NOT NULL AUTO_INCREMENT,
+		`proId` int(11) DEFAULT NULL,
+		`title` varchar(255) DEFAULT NULL,
+		`url` varchar(255) DEFAULT NULL,
+		`color` varchar(255) DEFAULT NULL,
+		PRIMARY KEY (`id`)
+	) $charset_collate;";
+
+	$sql_text = "CREATE TABLE $table_name_text (
+		`ID` int(11) NOT NULL AUTO_INCREMENT,
+		`proId` int(11) DEFAULT NULL,
+		`title` varchar(255) DEFAULT NULL,
+		`url` varchar(255) DEFAULT NULL,
+		`color` varchar(255) DEFAULT NULL,
+		PRIMARY KEY (`id`)
+	) $charset_collate;";
+
 	$sql2 = "CREATE TABLE $table_name2 (
 		`ID` int(11) NOT NULL AUTO_INCREMENT,
 		`proId` int(11) DEFAULT NULL,
@@ -68,6 +90,10 @@ function smartcms_scwspd_install(){
 	dbDelta($sql2);
 	dbDelta($sql3);
 	dbDelta($sql_pattern);
+	dbDelta($sql_graphics);
+	dbDelta($sql_text);
+
+
 	
 	add_option("wnm_db_version", $wnm_db_version);
 }
@@ -132,6 +158,12 @@ function scwspd_add_tab_admin_product_display(){
 
 		$tableImagesName_pattern = $wpdb->prefix . 'scwspd_images_pattern';
 		$checkImages_pattern = $wpdb->get_results("SELECT * from $tableImagesName_pattern where proId = ".$postId);
+
+		$tableImagesName_graphics = $wpdb->prefix . 'scwspd_images_graphics';
+		$checkImages_graphics = $wpdb->get_results("SELECT * from $tableImagesName_graphics where proId = ".$postId);
+
+		$tableImagesName_text = $wpdb->prefix . 'scwspd_images_text';
+		$checkImages_text = $wpdb->get_results("SELECT * from $tableImagesName_text where proId = ".$postId);
 
 		$tableQty = $wpdb->prefix . 'scwspd_quantity';
 		$qtys = $wpdb->get_results("SELECT * from $tableQty where proId = ".$postId);
@@ -201,6 +233,72 @@ function scwspd_add_tab_admin_product_display(){
 			}
 			?>
 			</div>
+
+			<!-- graphics -->
+			<div class="scwspd_upload_graphics">
+				<span class="scwspd_upload_header">Graphics Manage</span>
+				<div class="scwspd_upload_add_graphics">
+					<input class="scwspd_upload_add_color_graphics" placeholder="Color" type="color">
+					<input class="scwspd_upload_add_title_graphics" placeholder="Title">
+					<input class="scwspd_upload_add_image_graphics">
+					<span class="scwspd_upload_add_upload_graphics">Choose Image</span>
+					<span class="scwspd_upload_add_button_graphics">Add</span>
+				</div>
+			</div>
+			<div class="scwspd_images_graphics">
+			<?php
+			if($checkImages_graphics){
+				foreach($checkImages_graphics as $image){
+					?>
+					<div class="scwspd_images_item_graphics">
+						<input type="hidden" value="<?php echo $image->ID ?>" class="scwspd_images_item_id_graphics">
+						<img src="<?php echo $image->url ?>" class="scwspd_images_item_preview_graphics">
+						<input class="scwspd_images_item_color_graphics" type="color" value="<?php echo $image->color ?>" name="scwspd_images_item_color">
+						<input class="scwspd_images_item_title_graphics" placeholder="Title" value="<?php echo $image->title ?>" name="scwspd_images_item_title">
+						<input class="scwspd_images_item_image_graphics" value="<?php echo $image->url ?>" name="scwspd_images_item_image">
+						<span class="scwspd_images_item_upload_graphics">Choose Image</span>
+						<span class="scwspd_images_item_save_graphics">Save</span>
+						<span class="scwspd_images_item_delete_graphics">Delete</span>
+					</div>
+					<?php
+				}
+			}
+			?>
+			</div>
+			<!-- text -->
+
+			<div class="scwspd_upload_text">
+				<span class="scwspd_upload_header">Text Manage</span>
+<!-- 				<div id="def_text" class="scwspd_upload_add_text">
+					<input type="hidden" value="<?php echo $postId ?>" class="scwspd_images_item_id_text">
+					<input class="scwspd_upload_add_title_text" placeholder="Title" value="Congratulations Mary">
+					<span class="scwspd_images_item_save_text_def">Save</span>
+				</div> -->
+				<div class="scwspd_upload_add_text">
+					<input class="scwspd_upload_add_color_text" placeholder="Color" type="color">
+					<span class="scwspd_upload_add_button_text">Add Color</span>
+				</div>
+			</div>
+			<div class="scwspd_images_text">
+			<?php
+			if($checkImages_text){
+				foreach($checkImages_text as $image){
+					?>
+					<div class="scwspd_images_item_text">
+						<input type="hidden" value="<?php echo $image->ID ?>" class="scwspd_images_item_id_text">
+						<img src="<?php echo $image->url ?>" class="scwspd_images_item_preview_text">
+						<input class="scwspd_images_item_color_text" type="color" value="<?php echo $image->color ?>" name="scwspd_images_item_color">
+						<input class="scwspd_images_item_title_text" placeholder="Title" value="<?php echo $image->title ?>" name="scwspd_images_item_title">
+						<input class="scwspd_images_item_image_text" value="<?php echo $image->url ?>" name="scwspd_images_item_image">
+						<span class="scwspd_images_item_upload_text">Choose Image</span>
+						<span class="scwspd_images_item_save_text">Save</span>
+						<span class="scwspd_images_item_delete_text">Delete</span>
+					</div>
+					<?php
+				}
+			}
+			?>
+			</div>
 			<!-- qty -->
 			<div class="scwspd_qtymanage">
 				<div class="scwspd_qtymanage_add">
@@ -245,6 +343,14 @@ function smartcms_scwspd_fontend_single(){
 	$tableImages_pattern = $wpdb->prefix . 'scwspd_images_pattern';
 	$images_pattern = $wpdb->get_results("SELECT * from $tableImages_pattern where proId = ".$proId);
 
+// graphics
+
+	$tableImages_graphics = $wpdb->prefix . 'scwspd_images_graphics';
+	$images_graphics = $wpdb->get_results("SELECT * from $tableImages_graphics where proId = ".$proId);
+
+	$tableImages_text = $wpdb->prefix . 'scwspd_images_text';
+	$images_text = $wpdb->get_results("SELECT * from $tableImages_text where proId = ".$proId);
+
 	$tableQty = $wpdb->prefix . 'scwspd_quantity';
 	$qtys = $wpdb->get_results("SELECT * from $tableQty where proId = ".$proId);
 	
@@ -272,7 +378,13 @@ function smartcms_scwspd_fontend_single(){
 
 		wp_register_script('scwspd-jspdf', SMARTCMS_SCWSPD_URL .'js/jspdf.min.js');
 		wp_enqueue_script('scwspd-jspdf');
-		
+
+
+		// wp_register_script('slick_min_js', SMARTCMS_SCWSPD_URL .'js/slick.min.js');
+		// wp_enqueue_script('slick_min_js');
+		// wp_register_style('slick_css', SMARTCMS_SCWSPD_URL .'css/slick.css');
+		// wp_enqueue_style('slick_css');
+
 		wp_register_script('scwspd-script-frontend', SMARTCMS_SCWSPD_URL .'js/script.js');
 		wp_enqueue_script('scwspd-script-frontend');
 		wp_register_style('scwspd-style-frontend', SMARTCMS_SCWSPD_URL .'css/style.css');
@@ -292,6 +404,22 @@ function smartcms_scwspd_fontend_single(){
 		$colors_pattern = array_unique($colors_pattern);
 		$firstColor_pattern = "";
 		//var_dump($colors_pattern);
+
+		$colors_graphics = array();
+		foreach($images_graphics as $img_graphics){
+			array_push($colors_graphics, $img_graphics->url);
+		}
+		$colors_graphics = array_unique($colors_graphics);
+		$firstColor_graphics = "";
+
+
+		$colors_text = array();
+		foreach($images_text as $img_text){
+			array_push($colors_text, $img_text->color);
+		}
+		$colors_text = array_unique($colors_text);
+		$firstColor_text = "";
+
 		?>
 		<div class="smartcms_content" style="display:none">
 			<input type="hidden" class="smartcms_url" value="<?php echo SMARTCMS_SCWSPD_URL ?>">
@@ -335,33 +463,76 @@ function smartcms_scwspd_fontend_single(){
 					?>
 				</div>
 
+				<!-- graphics -->
+				<div class="scwspd_choose_color_graphics">
+					<div class="scwspd_choose_color_header">
+						<!-- <img class="scwspd_header_img" src="<?php echo SMARTCMS_SCWSPD_URL ?>images/color-icon.jpg"> -->
+						<span class="scwspd_header_text">Add some graphics</span>
+					</div>
+					<!-- <div class="scwspd_choose_color_graphics_slick"> -->
+					<?php
+					foreach($colors_graphics as $key=>$color_graphics){
+						if($key == 0) $firstColor_graphics = $color_graphics;
+						?>
+						<div class="scwspd_choose_color_item_graphics">
+							<span data-pat="<?php echo $color_graphics; ?>" class="graphics_bg" style=" background: url(<?php echo $color_graphics; ?>);"><?php echo $color_graphics; ?></span>
+						</div>
+						<?php
+					}
+					?>
+					<!-- </div> -->
+				</div>
+
 				<!-- text -->
 				<div class="scwspd_add_text">
 					<div class="scwspd_add_text_header">
 						<img class="scwspd_header_img" src="<?php echo SMARTCMS_SCWSPD_URL ?>images/text-icon.jpg">
 						<span class="scwspd_header_text">You can also add some text (max.40 characters)</span>
 					</div>
+
+
 					<div class="scwspd_add_text_content">
 						<span class="scwspd_at_button">Add</span>
 					</div>
+
+					<div class="scwspd_choose_color_header">
+						<img class="scwspd_header_img" src="<?php echo SMARTCMS_SCWSPD_URL ?>images/color-icon.jpg">
+						<span class="scwspd_header_text">Now choose the text color</span>
+					</div>
+
+						<?php
+						foreach($colors_text as $key=>$color){
+							if($key == 0) $firstColor = $color;
+							?>
+							<div class="scwspd_choose_color_item_text ">
+								<span style="background: <?php echo $color ?>"><?php echo $color ?></span>
+							</div>
+							<?php
+						}
+						?>
+
 				</div>
 
 				<!-- pane -->
 
 				<!-- end pane -->
 
-				<div class="scwspd_upload_image">
+<!-- 				<div class="scwspd_upload_image">
+
 					<div class="scwspd_upload_image_header">
 						<img class="scwspd_header_img" src="<?php echo SMARTCMS_SCWSPD_URL ?>images/image-icon.jpg">
 						<span class="scwspd_header_text">Upload Images</span>
 					</div>
 					<div class="scwspd_upload_image_content">
-					
-
-
 						<span class="scwspd_uploadimage_button">Add Image</span>
 					</div>
-				</div>
+
+
+
+				</div> -->
+
+
+
 				<?php if($qtys){ ?>
 				<div class="scwspd_qty">
 					<div class="scwspd_qty_header">
@@ -383,11 +554,12 @@ function smartcms_scwspd_fontend_single(){
 					</div>
 				</div>
 				<?php } ?>
+
 				<div class="scwspd_preview">
-					<div class="scwspd_preview_header">
+<!-- 					<div class="scwspd_preview_header">
 						<img class="scwspd_header_img" src="<?php echo SMARTCMS_SCWSPD_URL ?>images/preview-icon.png">
 						<span class="scwspd_header_text">Review</span>
-					</div>
+					</div> -->
 					<div class="scwspd_preview_content">
 						<span class="scwspd_preview_content_use">Render Design</span>
 					</div>

@@ -182,6 +182,190 @@
     width: 70px;
 }
 
+/*_graphics*/
+.smartcms_admin_page_graphics {
+    display: inline-block;
+    width: 100%;
+}
+.scwspd_upload_graphics {
+    float: left;
+    width: 100%;
+    margin-top: 40px;
+}
+.scwspd_upload_header_graphics {
+    float: left;
+    font-weight: bold;
+    width: 100%;
+}
+.scwspd_upload_add_graphics {
+    float: left;
+    margin-top: 5px;
+    width: 100%;
+}
+.scwspd_upload_add_title_graphics {
+    border: 1px solid #ccc;
+    float: left;
+}
+.scwspd_upload_add_image_graphics {
+    border: 1px solid #ccc;
+    float: left;
+}
+.scwspd_upload_add_upload_graphics {
+    background: teal none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    float: left;
+    height: 28px;
+    line-height: 28px;
+    margin-top: 1px;
+    text-align: center;
+    width: 100px;
+}
+.scwspd_upload_add_button_graphics {
+    background: #016200 none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    float: left;
+    height: 28px;
+    line-height: 28px;
+    margin-left: 5px;
+    margin-top: 1px;
+    text-align: center;
+    width: 50px;
+}
+.scwspd_upload_add_color_graphics {
+    float: left;
+    height: 28px;
+    display: none;
+}
+.scwspd_images_graphics {
+    border-top: 2px solid #ccc;
+    float: left;
+    margin-top: 20px;
+    width: 100%;
+}
+.scwspd_images_item_graphics {
+    border-bottom: 1px solid #ccc;
+    float: left;
+    height: 60px;
+    line-height: 60px;
+    margin-top: 10px;
+    width: 100%;
+}
+.scwspd_images_item_preview_graphics {
+    float: left;
+    height: 50px;
+}
+.scwspd_images_item_color_graphics{
+    margin-left: 10px;
+    display: none;
+}
+.scwspd_images_item_title_graphics,
+.scwspd_images_item_image_graphics {
+    margin-left: 10px;
+    border: 1px solid #ccc;
+}
+.scwspd_images_item_upload_graphics {
+    background: teal none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    width: 100px;
+}
+.scwspd_images_item_save_graphics {
+    background: #015400 none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    width: 50px;
+    margin-left: 10px;
+}
+.scwspd_images_item_delete_graphics {
+    background: #8c0000 none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    width: 70px;
+}
+.scwspd_qtymanage_graphics {
+    border-top: 2px solid;
+    float: left;
+    width: 100%;
+}
+.scwspd_qtymanage_add_graphics {
+    float: left;
+    margin-top: 5px;
+    width: 100%;
+}
+.scwspd_qtymanage_add_header_graphics {
+    float: left;
+    font-weight: bold;
+    margin-bottom: 5px;
+    width: 100%;
+}
+.scwspd_qtymanage_add_label_graphics, .scwspd_qtymanage_add_price_graphics {
+    border: 1px solid #ccc;
+    float: left;
+}
+.scwspd_qtymanage_add_button_graphics {
+    background: #015500 none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    float: left;
+    height: 28px;
+    line-height: 28px;
+    margin-top: 1px;
+    text-align: center;
+    width: 50px;
+}
+.scwspd_qtymanage_content_graphics {
+    border-top: 1px solid #ccc;
+    float: left;
+    margin-top: 10px;
+    width: 100%;
+}
+.scwspd_qtymanage_item_graphics {
+    float: left;
+    margin-top: 5px;
+    width: 100%;
+}
+.scwspd_qtymanage_item_label_graphics,
+.scwspd_qtymanage_item_price_graphics {
+    border: 1px solid #ccc;
+    float: left;
+}
+.scwspd_qtymanage_item_save_graphics {
+    background: teal none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    float: left;
+    height: 28px;
+    line-height: 28px;
+    margin-top: 1px;
+    text-align: center;
+    width: 50px;
+}
+.scwspd_qtymanage_item_delete_graphics {
+    background: #a20000 none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    float: left;
+    height: 28px;
+    line-height: 28px;
+    margin-left: 5px;
+    margin-top: 1px;
+    text-align: center;
+    width: 70px;
+}
 
 /*pattern*/
 .smartcms_admin_page_pattern {
@@ -356,6 +540,204 @@
     width: 50px;
 }
 .scwspd_qtymanage_item_delete_pattern {
+    background: #a20000 none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    float: left;
+    height: 28px;
+    line-height: 28px;
+    margin-left: 5px;
+    margin-top: 1px;
+    text-align: center;
+    width: 70px;
+}
+
+/*text*/
+.smartcms_admin_page_text {
+    display: inline-block;
+    width: 100%;
+}
+.scwspd_upload_text {
+    float: left;
+    width: 100%;
+    margin-top: 40px;
+}
+.scwspd_upload_header_text {
+    float: left;
+    font-weight: bold;
+    width: 100%;
+}
+.scwspd_upload_add_text {
+    float: left;
+    margin-top: 5px;
+    width: 100%;
+}
+.scwspd_upload_add_title_text {
+    border: 1px solid #ccc;
+    float: left;
+}
+.scwspd_upload_add_image_text {
+    border: 1px solid #ccc;
+    float: left;
+}
+.scwspd_upload_add_upload_text {
+    background: teal none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    float: left;
+    height: 28px;
+    line-height: 28px;
+    margin-top: 1px;
+    text-align: center;
+    width: 100px;
+}
+.scwspd_upload_add_button_text {
+    background: #016200 none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    float: left;
+    height: 28px;
+    line-height: 28px;
+    margin-left: 5px;
+    margin-top: 1px;
+    text-align: center;
+    width: 75px;
+}
+.scwspd_upload_add_color_text {
+    float: left;
+    height: 28px;
+    /*display: none;*/
+}
+.scwspd_images_text {
+    border-top: 2px solid #ccc;
+    float: left;
+    margin-top: 20px;
+    width: 100%;
+}
+.scwspd_images_item_text {
+    border-bottom: 1px solid #ccc;
+    float: left;
+    height: 60px;
+    line-height: 60px;
+    margin-top: 10px;
+    width: 100%;
+}
+.scwspd_images_item_preview_text {
+    float: left;
+    height: 50px;
+}
+.scwspd_images_item_color_text{
+    margin-left: 10px;
+    /*display: none;*/
+}
+.scwspd_images_item_title_text,
+.scwspd_images_item_image_text {
+    margin-left: 10px;
+    border: 1px solid #ccc;
+    display: none;
+}
+.scwspd_images_item_upload_text {
+    background: teal none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    width: 100px;
+    display: none;
+}
+.scwspd_images_item_save_text {
+    background: #015400 none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    width: 50px;
+    margin-left: 10px;
+}
+.scwspd_images_item_save_text_def {
+    background: #015400 none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    width: 50px;
+    margin-left: 10px;
+}
+.scwspd_images_item_delete_text {
+    background: #8c0000 none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    width: 70px;
+}
+.scwspd_qtymanage_text {
+    border-top: 2px solid;
+    float: left;
+    width: 100%;
+}
+.scwspd_qtymanage_add_text {
+    float: left;
+    margin-top: 5px;
+    width: 100%;
+}
+.scwspd_qtymanage_add_header_text {
+    float: left;
+    font-weight: bold;
+    margin-bottom: 5px;
+    width: 100%;
+}
+.scwspd_qtymanage_add_label_text, .scwspd_qtymanage_add_price_text {
+    border: 1px solid #ccc;
+    float: left;
+}
+.scwspd_qtymanage_add_button_text {
+    background: #015500 none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    float: left;
+    height: 28px;
+    line-height: 28px;
+    margin-top: 1px;
+    text-align: center;
+    width: 50px;
+}
+.scwspd_qtymanage_content_text {
+    border-top: 1px solid #ccc;
+    float: left;
+    margin-top: 10px;
+    width: 100%;
+}
+.scwspd_qtymanage_item_text {
+    float: left;
+    margin-top: 5px;
+    width: 100%;
+}
+.scwspd_qtymanage_item_label_text,
+.scwspd_qtymanage_item_price_text {
+    border: 1px solid #ccc;
+    float: left;
+}
+.scwspd_qtymanage_item_save_text {
+    background: teal none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    float: left;
+    height: 28px;
+    line-height: 28px;
+    margin-top: 1px;
+    text-align: center;
+    width: 50px;
+}
+.scwspd_qtymanage_item_delete_text {
     background: #a20000 none repeat scroll 0 0;
     color: #fff;
     cursor: pointer;

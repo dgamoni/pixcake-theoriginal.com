@@ -49,6 +49,135 @@ if($task == "add_image"){
 		));
 	}
 
+}elseif($task == "add_image_graphics"){
+	$proId = $_POST["proId"];
+	$title = $_POST["title"];
+	$url = $_POST["url"];
+	$color = $_POST["color"];
+	
+	$tableName = $wpdb->prefix . 'scwspd_images_graphics';
+	$rs = $wpdb->get_results("SELECT * from $tableName where proId = '".$proId."' and url = '".$url."' and color = '".$color."'");
+	
+	if($rs){
+		echo "This image already exists!";
+	}else{
+		echo $wpdb->insert( $tableName,
+			array( 
+				'proId' => $proId,
+				'title' => $title,
+				'url' => $url,
+				'color' => $color
+		));
+	}
+
+}elseif($task == "add_image_text"){
+	$proId = $_POST["proId"];
+	$title = $_POST["title"];
+	$url = $_POST["url"];
+	$color = $_POST["color"];
+	
+	$tableName_text = $wpdb->prefix . 'scwspd_images_text';
+	$rs = $wpdb->get_results("SELECT * from $tableName where proId = '".$proId."' and url = '".$url."' and color = '".$color."'");
+	
+	if($rs){
+		echo "This image already exists!";
+	}else{
+		echo $wpdb->insert( $tableName_text,
+			array( 
+				'proId' => $proId,
+				'title' => $title,
+				'url' => $url,
+				'color' => $color
+		));
+	}
+
+}elseif($task == "save_image_graphics"){
+	$id = $_POST["id"];
+	$title = $_POST["title"];
+	$url = $_POST["url"];
+	$color = $_POST["color"];
+	
+	$tableName = $wpdb->prefix . 'scwspd_images_graphics';
+	echo $wpdb->update($tableName, array(
+		'title' => $title,
+		'url' => $url,
+		'color' => $color
+	),array(
+		'ID' => $id
+	));
+
+}elseif($task == "save_image_text"){
+	$id = $_POST["id"];
+	$title = $_POST["title"];
+	$url = $_POST["url"];
+	$color = $_POST["color"];
+	
+	$tableName = $wpdb->prefix . 'scwspd_images_text';
+	echo $wpdb->update($tableName, array(
+		'title' => $title,
+		'url' => $url,
+		'color' => $color
+	),array(
+		'ID' => $id
+	));
+
+// text
+	}elseif($task == "save_text_def"){
+	$proId = $_POST["id"];
+	$title = $_POST["title"];
+	$table_id = $_POST["table_id"];
+	//$url = $_POST["url"];
+	//$color = $_POST["color"];
+
+	$tableName_text = $wpdb->prefix . 'scwspd_images_text';
+	$rs = $wpdb->get_results("SELECT * from $tableName_text where proId = '".$proId."' and url='0'");
+
+	if($rs) {
+		//echo 'up';
+		echo $wpdb->update( $tableName_text,
+			array( 
+				'url'	=> '0',
+				'proId' => $proId,
+				'title' => $title
+		),array(
+			'ID' => $table_id
+		));
+		//die();
+	} else {
+		$wpdb->insert( $tableName_text,
+			array( 
+				'url'	=> '0',
+				'proId' => $proId,
+				'title' => $title
+			));
+		echo $wpdb->insert_id;
+	}
+
+	
+	// echo $wpdb->update($tableName, array(
+	// 	'title' => $title,
+	// 	'url' => '',
+	// 	'color' => ''
+	// ),array(
+	// 	'ID' => $id
+	// ));
+
+
+}elseif($task == "delete_image_graphics"){
+	$id = $_POST["id"];
+	
+	$tableName = $wpdb->prefix . 'scwspd_images_graphics';
+	echo $wpdb->delete( $tableName, array(
+		'ID' => $id
+	));
+
+}elseif($task == "delete_image_text"){
+	$id = $_POST["id"];
+	
+	$tableName = $wpdb->prefix . 'scwspd_images_text';
+	echo $wpdb->delete( $tableName, array(
+		'ID' => $id
+	));
 
 }elseif($task == "save_image"){
 	$id = $_POST["id"];
