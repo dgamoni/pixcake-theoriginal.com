@@ -384,6 +384,9 @@ function smartcms_scwspd_fontend_single(){
 		wp_enqueue_script('scwspd-jspdf');
 
 
+		// wp_register_style('pretty-checkbox-css', SMARTCMS_SCWSPD_URL .'css/pretty-checkbox.min.css');
+		// wp_enqueue_style('pretty-checkbox-css');
+
 		// wp_register_script('slick_min_js', SMARTCMS_SCWSPD_URL .'js/slick.min.js');
 		// wp_enqueue_script('slick_min_js');
 		// wp_register_style('slick_css', SMARTCMS_SCWSPD_URL .'css/slick.css');
@@ -541,17 +544,20 @@ function smartcms_scwspd_fontend_single(){
 				<?php if($qtys){ ?>
 				<div class="scwspd_qty">
 					<div class="scwspd_qty_header">
-						<img class="scwspd_header_img" src="<?php echo SMARTCMS_SCWSPD_URL ?>images/qty-icon.jpg">
-						<span class="scwspd_header_text">Quantity</span>
+						
+						<span class="scwspd_header_text">Do you want matching postcards?</span>
+						<div class="scwspd_header_text_descript scwspd_header_text_descript1">Size, material, how it’s printed...</div>
+						<div class="scwspd_header_text_descript scwspd_header_text_descript2">1 pack - 16 postcards</div>
+						<img class="scwspd_header_img" src="<?php echo SMARTCMS_SCWSPD_URL ?>images/post_bg2.png">
 					</div>
 					<div class="scwspd_qty_content">
 						<?php
 						foreach($qtys as $key=>$qty){
 							?>
 							<div class="scwspd_qty_item">
+  								<input class="checkbox scwspd_qty_item_radio" id="scwspd_qty_item_radio<?php echo $key ?>" type="radio" name="radio" <?php if($key==0) echo 'checked'; ?> >
+								<input id="scwspd_qty_item<?php echo $key ?>" class="scwspd_qty_item_input" value="<?php echo $qty->price ?>">
 								<label for="scwspd_qty_item<?php echo $key ?>"><?php echo $qty->label ?></label>
-								<input id="scwspd_qty_item<?php echo $key ?>" class="scwspd_qty_item_input">
-								<span class="scwspd_qty_item_price"><?php echo $currency.$qty->price ?> per item</span>
 							</div>
 							<?php
 						}
@@ -842,7 +848,7 @@ function scwspd_admin_edit_order( $item_id, $item, $product ){
 			$ctitle = $checkImg[3];
 			$qtys = $checkImg[2];
 			
-			var_dump($checkImg);
+			//var_dump($checkImg);
 
 			$designs .= "<div class='scwspd_yourdesign_item'>";
 			$checkdataimages = explode("#", $dataimages);
@@ -851,7 +857,7 @@ function scwspd_admin_edit_order( $item_id, $item, $product ){
 					$designs .= '<a class="scwspd_group" href="'.$image.'"><img src="'.$image.'"></a>';
 				endif;
 			}
-			$designs .='<a href="'.$ccolor.'" target="_blank" id="" title="PDF File">PDF file</a>';
+			$designs .='<a href="'.SMARTCMS_SCWSPD_URL.'upload/'.$ccolor.'" target="_blank" id="" title="PDF File">PDF file</a>';
 			//$designs .= "<br><br><span class='scwspd_yourdesign_item_title'>".$ctitle."</span>";
 			//$designs .= "<span class='scwspd_yourdesign_item_color' style='background: ".$ccolor."'>".$ccolor."</span><br>";
 			//$checkQtys = explode("&", $qtys);

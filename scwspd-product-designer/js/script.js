@@ -333,6 +333,7 @@ function uploadBlob(blobs, id){
 		            var file_pdf = jQuery(".smartcms_pdf").val();
 
 		            var dulieu = "#"+fimage+"@"+file_pdf;
+ 					//var dulieu = "#"+fimage;
 
 		            //console.log(uploadBlob(blob));
 
@@ -346,7 +347,7 @@ function uploadBlob(blobs, id){
 					data: {
 						proid: proid,
 						dulieu: dulieu,
-						blob: blob,
+						//blob: blob,
 						pdf: file_pdf,
 						task : "save_preview"
 					},

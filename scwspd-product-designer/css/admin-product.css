@@ -114,7 +114,8 @@
     border-top: 2px solid;
     float: left;
     width: 100%;
-        display: none;
+        /*display: none;*/
+        padding-top: 30px;
 }
 .scwspd_qtymanage_add {
     float: left;
