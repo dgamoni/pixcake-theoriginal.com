@@ -7,10 +7,17 @@ Version: 3.0
 */
 
 /*************** ADD CUSTOM CSS HERE.   ***************/
+.header-top {
+	background-image: url("https://pixcake-theoriginal.com/wp-content/uploads/2017/11/bts-30px.svg");
+    background-color: #D51D5B!important;
+}
 
 
 @media only screen and (max-width: 48em) {
 /*************** ADD MOBILE ONLY CSS HERE  ***************/
 
 
+}
+ul.product_list_widget li .scwspd_yourdesign_item img {
+	position: inherit;
 }

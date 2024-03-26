@@ -158,40 +158,50 @@ jQuery(document).ready(function(){
 
 	////////////
 	jQuery(".scwspd_preview_content_use").click(function(){
-		jQuery(".smartcms_content_right").css("opacity", "0.5");
+		//jQuery(".smartcms_content_right").css("opacity", "0.5");
 		jQuery(".scwspd_text_right_delete").hide();
 		jQuery(".scwspd_text_right_move").hide();
 		jQuery(".scwspd_right_item_add").hide();
 		jQuery(".ui-resizable-se").hide();
 		jQuery(".scwspd_image_right").css("border", "none");
 		
+		//var pdf = new jsPDF('p', 'pt', [500, 500]);
+
 		html2canvas(jQuery(".smartcms_content_right"), {
 			 onrendered: function(canvas){
-				 jQuery(".smartcms_firstimage").val(canvas.toDataURL("image/png"));
-				 renderSecondImage();
+				jQuery(".smartcms_firstimage").val(canvas.toDataURL("image/png"));
+				renderSecondImage();
+				//renderPDF();
+
+					// var imgData = canvas.toDataURL("image/png",);
+					// var pdf = new jsPDF('l', 'mm', [132, 132]);
+					// pdf.addImage(imgData, 'PNG', 0, 0, 132, 132);
+					// pdf.save("youdesign.pdf");
+
+     //       var blob = pdf.output("blob");
+     //       var blobURL = URL.createObjectURL(blob);
+     //       var downloadLink = document.getElementById('pdf-download-link');
+     //       downloadLink.href = blobURL;
+
 			 },
-		  width: 500,
+		  width: 510,
 		  height: 500
 		});
-		
-		// html2canvas(jQuery(".smartcms_content_right"), {
-		//   onrendered: function(canvas) {
-		//     document.body.appendChild(canvas);
-		//     jQuery(".smartcms_firstimage").val(canvas.toDataURL("image/png"));
-		//   },
-		//   width: 500,
-		//   height: 500
-		// });
+
+		// setTimeout(function() {
+
+  //       }, 0);				 
 
 
 
 	});
+
 	function renderSecondImage(){
-		jQuery(".scwspd_right_item.active").children(".scwspd_right_item_main").children("img").css("opacity", "0");
+		//jQuery(".scwspd_right_item.active").children(".scwspd_right_item_main").children("img").css("opacity", "0");
 		html2canvas(jQuery(".smartcms_content_right"), {
 			onrendered: function(canvas2){
 				var fimage = jQuery(".smartcms_firstimage").val();
-				console.log(fimage);
+				//console.log(fimage);
 				 var color = jQuery(".scwspd_choose_color_item.active").children("span").text();
 				 var title = jQuery(".scwspd_right_item.active").children(".scwspd_right_item_add.active").children("span").text();
 				 var qtys = "";
@@ -209,16 +219,32 @@ jQuery(document).ready(function(){
 				 });
 				 
 				 var dulieu = fimage+"#"+canvas2.toDataURL("image/png")+"@"+color+"@"+qtys+"@"+title;
-				 
+				 var imgData = canvas2.toDataURL("image/png",);
+					var pdf = new jsPDF('l', 'mm', [132, 132]);
+					pdf.addImage(imgData, 'PNG', 0, 0, 132, 132);
+		           var blob = pdf.output("blob");
+		           var blobURL = URL.createObjectURL(blob);
+
 				 jQuery.ajax({
 					url: url+"helper.php",
 					data: {
 						proid: proid,
 						dulieu: dulieu,
+						bloburl: blobURL,
 						task : "save_preview"
 					},
 					type: 'POST',
 					success: function(data){
+
+					// var imgData = canvas.toDataURL("image/png",);
+					// var pdf = new jsPDF('l', 'mm', [132, 132]);
+					// pdf.addImage(imgData, 'PNG', 0, 0, 132, 132);
+					// //pdf.save("youdesign.pdf");
+		   //         var blob = pdf.output("blob");
+		   //         var blobURL = URL.createObjectURL(blob);
+		   //         var downloadLink = document.getElementById('pdf-download-link');
+		           //downloadLink.href = blobURL;
+
 						var checkSize = jQuery(".scwspd_preview_item").size();
 						 jQuery(".scwspd_preview_items").append("<div class='scwspd_preview_item scwspd_preview_item"+checkSize+"'>"+
 							'<div class="scwspd_preview_item_left">'+
@@ -234,6 +260,7 @@ jQuery(document).ready(function(){
 										"<img src='"+fimage+"'>"+
 									"</a>"+
 								'</div>'+
+								'<a href="'+blobURL+'" target="_blank" id="pdf-download-link" title="Download PDF File">Download PDF file</a>'+
 								'<div class="scwspd_preview_item_left_quantity">'+
 									
 								'</div>'+
@@ -252,8 +279,8 @@ jQuery(document).ready(function(){
 							 }
 						 });
 						 
-						 jQuery(".scwspd_right_item.active").children(".scwspd_right_item_main").children("img").css("opacity", "1");
-						 jQuery(".smartcms_content_right").css("opacity", "1");
+						 //jQuery(".scwspd_right_item.active").children(".scwspd_right_item_main").children("img").css("opacity", "1");
+						 //jQuery(".smartcms_content_right").css("opacity", "1");
 						 jQuery(".scwspd_right_item_add").hide();
 						 
 						 jQuery(".scwspd_group").colorbox({rel:'scwspd_group', 'photo':true});
@@ -302,7 +329,9 @@ jQuery(document).ready(function(){
 						 jQuery(".scwspd_image_right").css("border", "1px solid #ccc");
 					}
 				});
-			}
+			},
+		  width: 510,
+		  height: 500
 		});
 	}
 	//////////////////

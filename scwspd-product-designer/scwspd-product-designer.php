@@ -269,6 +269,9 @@ function smartcms_scwspd_fontend_single(){
 		
 		wp_register_script('scwspd-html2canvas', SMARTCMS_SCWSPD_URL .'js/html2canvas.js');
 		wp_enqueue_script('scwspd-html2canvas');
+
+		wp_register_script('scwspd-jspdf', SMARTCMS_SCWSPD_URL .'js/jspdf.min.js');
+		wp_enqueue_script('scwspd-jspdf');
 		
 		wp_register_script('scwspd-script-frontend', SMARTCMS_SCWSPD_URL .'js/script.js');
 		wp_enqueue_script('scwspd-script-frontend');
@@ -294,6 +297,7 @@ function smartcms_scwspd_fontend_single(){
 			<input type="hidden" class="smartcms_url" value="<?php echo SMARTCMS_SCWSPD_URL ?>">
 			<input type="hidden" class="smartcms_proid" value="<?php echo $proId ?>">
 			<input type="hidden" class="smartcms_firstimage" value="">
+
 			
 			<div class="smartcms_content_left">
 				<div class="scwspd_choose_color">
@@ -388,7 +392,7 @@ function smartcms_scwspd_fontend_single(){
 						<span class="scwspd_preview_content_use">Render Design</span>
 					</div>
 					<div class="scwspd_preview_items">
-					<?php //unset($_SESSION["scwspdimages".$proId]);
+					<?php unset($_SESSION["scwspdimages".$proId]);
 //var_dump($_SESSION);
 						if(isset($_SESSION["scwspdimages".$proId])){
 							$secimages = $_SESSION["scwspdimages".$proId];
