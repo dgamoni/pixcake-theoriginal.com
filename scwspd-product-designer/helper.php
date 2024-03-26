@@ -95,7 +95,7 @@ if($task == "add_image"){
 	echo $wpdb->delete( $tableName, array(
 		'ID' => $id
 	));
-	
+
 }elseif($task == "save_preview"){
 	$proid = $_POST["proid"];
 	$dulieu = $_POST["dulieu"];

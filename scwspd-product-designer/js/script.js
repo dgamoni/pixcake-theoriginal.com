@@ -11,20 +11,23 @@ jQuery(document).ready(function(){
 	
 	var editors = {}; 
     
-	jQuery(".woocommerce-product-gallery").replaceWith(jQuery(".smartcms_content").show());
+	//jQuery(".woocommerce-product-gallery").replaceWith(jQuery(".smartcms_content").show());
+	jQuery(".woocommerce-product-gallery").replaceWith(jQuery(".smartcms_content_right").show());
+	jQuery(".smartcms_content").show();
+
 	jQuery(".smartcms_content").before( jQuery(".product_title") );
 	
 	//////////
-	jQuery(".scwspd_at_button").click(function(){
+	//jQuery(".scwspd_at_button").click(function(){
 		var checkSize = jQuery(".scwspd_text_right").size();
 		
 		jQuery(".smartcms_content_right").append("<div class='scwspd_text_right scwspd_text_right"+checkSize+"'>"+
 			"<span class='scwspd_text_right_delete'><img src='"+url+"images/delete-icon.png'></span>"+
 			"<span class='scwspd_text_right_move'><img src='"+url+"images/move-icon.png'></span><br>"+
-			"<span id='scwspd_text_right"+checkSize+"' class='scwspd_text_right_edit'>Hello!</span>"+
+			"<span id='scwspd_text_right"+checkSize+"' class='scwspd_text_right_edit'>Congratulations Mary</span>"+
 		"</div>");
 		
-		jQuery(".scwspd_at_button").before("<div class='scwspd_divat_panel scwspd_divat_panel"+checkSize+"'><textarea class='scwspd_at_panel' id='scwspd_at_panel"+checkSize+"'>Hello!</textarea></div>");
+		jQuery(".scwspd_at_button").before("<div class='scwspd_divat_panel scwspd_divat_panel"+checkSize+"'><textarea class='scwspd_at_panel' id='scwspd_at_panel"+checkSize+"'>Congratulations Mary</textarea></div>");
 		editors[checkSize] = new nicEditor({ iconsPath : url+'images/nicEditorIcons.gif' }).panelInstance("scwspd_at_panel"+checkSize);
 		
 		jQuery(".scwspd_divat_panel"+checkSize).find(".nicEdit-main").attr('id', "scwspd_editor"+checkSize);
@@ -43,7 +46,7 @@ jQuery(document).ready(function(){
 			jQuery(".scwspd_text_right"+checkSize).remove();
 			jQuery(".scwspd_divat_panel"+checkSize).remove();
 		});
-	});
+	//});
 	
 	function calfun(el, checkSize){
 		var elthis = jQuery(el);
@@ -85,12 +88,12 @@ jQuery(document).ready(function(){
 
 
 		jQuery("#scwspd_uploadimage_file"+checkSize).change(function(){
-			console.log(this);
-			console.log(this.files[0]);
+			//console.log(this);
+			//console.log(this.files[0]);
 			if(this.files && this.files[0]){
 				
 				var reader = new FileReader();
-				console.log(reader);
+				//console.log(reader);
 				reader.onload = function (e){
 					if( jQuery(".scwspd_image_right"+checkSize).size() > 0){
 						jQuery(".scwspd_image_right"+checkSize).children("img").attr("src", e.target.result);
@@ -111,6 +114,20 @@ jQuery(document).ready(function(){
 		});
 	});
 	
+	// pattern
+	jQuery(".scwspd_choose_color_item_pattern").each(function(key, val){
+		var elthis_ = jQuery(this);
+		//elthis_.click(function(){
+		elthis_.live('click',function(){
+			jQuery(".scwspd_choose_color_item_pattern").removeClass("active");
+			elthis_.addClass("active");
+			var bgurl = elthis_.find('.pattern_bg').attr('data-pat');
+			//console.log(bgurl);
+			jQuery(".main_pattern_bg").remove();
+			jQuery('.scwspd_right_item').children(".scwspd_right_item_main").append('<img class="main_pattern_bg" src="'+bgurl+'">');
+		});
+
+	});
 	/////////////////
 	jQuery(".scwspd_choose_color_item").each(function(key, val){
 		var elthis = jQuery(this);
@@ -125,7 +142,7 @@ jQuery(document).ready(function(){
 			jQuery(".scwspd_right_item.active").children(".scwspd_right_item_add:first").addClass("active");
 			
 			var src = jQuery(".scwspd_right_item.active").children(".scwspd_right_item_add:first").children("img").attr("src");
-			jQuery(".scwspd_right_item.active").children(".scwspd_right_item_main").children("img").attr("src", src);
+			jQuery(".scwspd_right_item.active").children(".scwspd_right_item_main").children("img").not('.main_pattern_bg').attr("src", src);
 		});
 	});
 	
@@ -152,16 +169,29 @@ jQuery(document).ready(function(){
 			 onrendered: function(canvas){
 				 jQuery(".smartcms_firstimage").val(canvas.toDataURL("image/png"));
 				 renderSecondImage();
-			 }
+			 },
+		  width: 500,
+		  height: 500
 		});
 		
-		
+		// html2canvas(jQuery(".smartcms_content_right"), {
+		//   onrendered: function(canvas) {
+		//     document.body.appendChild(canvas);
+		//     jQuery(".smartcms_firstimage").val(canvas.toDataURL("image/png"));
+		//   },
+		//   width: 500,
+		//   height: 500
+		// });
+
+
+
 	});
 	function renderSecondImage(){
 		jQuery(".scwspd_right_item.active").children(".scwspd_right_item_main").children("img").css("opacity", "0");
 		html2canvas(jQuery(".smartcms_content_right"), {
 			onrendered: function(canvas2){
 				var fimage = jQuery(".smartcms_firstimage").val();
+				console.log(fimage);
 				 var color = jQuery(".scwspd_choose_color_item.active").children("span").text();
 				 var title = jQuery(".scwspd_right_item.active").children(".scwspd_right_item_add.active").children("span").text();
 				 var qtys = "";
@@ -193,13 +223,13 @@ jQuery(document).ready(function(){
 						 jQuery(".scwspd_preview_items").append("<div class='scwspd_preview_item scwspd_preview_item"+checkSize+"'>"+
 							'<div class="scwspd_preview_item_left">'+
 								'<div class="scwspd_preview_item_left_first">'+
-									"<span class='scwspd_preview_title'>"+title+"</span>"+
-									"<span class='scwspd_preview_color' style='background: "+color+"'>"+color+"</span>"+
+									//"<span class='scwspd_preview_title'>"+title+"</span>"+
+									//"<span class='scwspd_preview_color' style='background: "+color+"'>"+color+"</span>"+
 								'</div>'+
 								'<div class="scwspd_preview_item_left_images">'+
-									"<a class='scwspd_group' href='"+canvas2.toDataURL("image/png")+"'>"+
-										"<img src='"+canvas2.toDataURL("image/png")+"'>"+
-									"</a>"+
+									//"<a class='scwspd_group' href='"+canvas2.toDataURL("image/png")+"'>"+
+										//"<img src='"+canvas2.toDataURL("image/png")+"'>"+
+									//"</a>"+
 									"<a class='scwspd_group' href='"+fimage+"'>"+
 										"<img src='"+fimage+"'>"+
 									"</a>"+
@@ -224,6 +254,7 @@ jQuery(document).ready(function(){
 						 
 						 jQuery(".scwspd_right_item.active").children(".scwspd_right_item_main").children("img").css("opacity", "1");
 						 jQuery(".smartcms_content_right").css("opacity", "1");
+						 jQuery(".scwspd_right_item_add").hide();
 						 
 						 jQuery(".scwspd_group").colorbox({rel:'scwspd_group', 'photo':true});
 						 jQuery(".scwspd_preview_item").each(function(){

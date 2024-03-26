@@ -232,7 +232,8 @@ function scwspd_add_tab_admin_product_display(){
 	}
 }
 
-add_action('woocommerce_after_single_product', 'smartcms_scwspd_fontend_single');
+//add_action('woocommerce_after_single_product', 'smartcms_scwspd_fontend_single');
+add_action('woocommerce_single_product_summary', 'smartcms_scwspd_fontend_single', 25);
 function smartcms_scwspd_fontend_single(){
 	global $product;
 	global $wpdb;
@@ -240,14 +241,22 @@ function smartcms_scwspd_fontend_single(){
 	
 	$tableImages = $wpdb->prefix . 'scwspd_images';
 	$images = $wpdb->get_results("SELECT * from $tableImages where proId = ".$proId);
-	
+
+	$tableImages_pattern = $wpdb->prefix . 'scwspd_images_pattern';
+	$images_pattern = $wpdb->get_results("SELECT * from $tableImages_pattern where proId = ".$proId);
+
 	$tableQty = $wpdb->prefix . 'scwspd_quantity';
 	$qtys = $wpdb->get_results("SELECT * from $tableQty where proId = ".$proId);
 	
 	global $woocommerce;
     $currency = get_woocommerce_currency_symbol();
 	
+	update_post_meta($proId, 'scwspd_images', '');
+
 	if($images){
+		
+		update_post_meta($proId, 'scwspd_images', 'designer_enable');
+
 		wp_register_script('scwspd-nicedit', SMARTCMS_SCWSPD_URL .'js/nicEdit.js');
 		wp_enqueue_script('scwspd-nicedit');
 		wp_register_script('scwspd-jqueryui', 'https://code.jquery.com/ui/1.11.1/jquery-ui.js');
@@ -272,6 +281,14 @@ function smartcms_scwspd_fontend_single(){
 		}
 		$colors = array_unique($colors);
 		$firstColor = "";
+
+		$colors_pattern = array();
+		foreach($images_pattern as $img_pattern){
+			array_push($colors_pattern, $img_pattern->url);
+		}
+		$colors_pattern = array_unique($colors_pattern);
+		$firstColor_pattern = "";
+		//var_dump($colors_pattern);
 		?>
 		<div class="smartcms_content" style="display:none">
 			<input type="hidden" class="smartcms_url" value="<?php echo SMARTCMS_SCWSPD_URL ?>">
@@ -295,15 +312,40 @@ function smartcms_scwspd_fontend_single(){
 					}
 					?>
 				</div>
+				
+				<!-- pattern -->
+				<div class="scwspd_choose_color_pattern">
+					<div class="scwspd_choose_color_header">
+						<img class="scwspd_header_img" src="<?php echo SMARTCMS_SCWSPD_URL ?>images/color-icon.jpg">
+						<span class="scwspd_header_text">Choose the background pattern</span>
+					</div>
+					<?php
+					foreach($colors_pattern as $key=>$color_pattern){
+						if($key == 0) $firstColor_pattern = $color_pattern;
+						?>
+						<div class="scwspd_choose_color_item_pattern">
+							<span data-pat="<?php echo $color_pattern; ?>" class="pattern_bg" style=" background: url(<?php echo $color_pattern; ?>);"><?php echo $color_pattern; ?></span>
+						</div>
+						<?php
+					}
+					?>
+				</div>
+
+				<!-- text -->
 				<div class="scwspd_add_text">
 					<div class="scwspd_add_text_header">
 						<img class="scwspd_header_img" src="<?php echo SMARTCMS_SCWSPD_URL ?>images/text-icon.jpg">
-						<span class="scwspd_header_text">Add Text</span>
+						<span class="scwspd_header_text">You can also add some text (max.40 characters)</span>
 					</div>
 					<div class="scwspd_add_text_content">
 						<span class="scwspd_at_button">Add</span>
 					</div>
 				</div>
+
+				<!-- pane -->
+
+				<!-- end pane -->
+
 				<div class="scwspd_upload_image">
 					<div class="scwspd_upload_image_header">
 						<img class="scwspd_header_img" src="<?php echo SMARTCMS_SCWSPD_URL ?>images/image-icon.jpg">
@@ -311,14 +353,7 @@ function smartcms_scwspd_fontend_single(){
 					</div>
 					<div class="scwspd_upload_image_content">
 					
-					<div class="scwspd_uploadimage_item scwspd_uploadimage_item0">
-						<label for="scwspd_uploadimage_file0">Choose a file</label>
-						<!-- <input id="scwspd_uploadimage_file0" type="file"> -->
-						<span id="scwspd_uploadimage_file0" type="file">img</span>
-						<span class="scwspd_uploadimage_delete">
-							<img id="image_scwspd_uploadimage_file0" src="https://pixcake-theoriginal.com/wp-content/plugins/scwspd-product-designer/images/delete-icon.png">
-						</span>
-					</div>
+
 
 						<span class="scwspd_uploadimage_button">Add Image</span>
 					</div>
@@ -354,8 +389,10 @@ function smartcms_scwspd_fontend_single(){
 					</div>
 					<div class="scwspd_preview_items">
 					<?php //unset($_SESSION["scwspdimages".$proId]);
+//var_dump($_SESSION);
 						if(isset($_SESSION["scwspdimages".$proId])){
 							$secimages = $_SESSION["scwspdimages".$proId];
+							//var_dump( $secimages );
 							$scwspdimages = explode("$", $secimages);
 							foreach($scwspdimages as $img){
 								$checkImg = explode("@", $img);
@@ -367,8 +404,8 @@ function smartcms_scwspd_fontend_single(){
 								<div class="scwspd_preview_item">
 									<div class="scwspd_preview_item_left">
 										<div class="scwspd_preview_item_left_first">
-											<span class="scwspd_preview_title"><?php echo $title ?></span>
-											<span class="scwspd_preview_color" style="background: <?php echo $color ?>"><?php echo $color ?></span>
+											<!-- <span class="scwspd_preview_title"><?php echo $title ?></span> -->
+											<!-- <span class="scwspd_preview_color" style="background: <?php echo $color ?>"><?php echo $color ?></span> -->
 										</div>
 										<div class="scwspd_preview_item_left_images">
 											<?php
@@ -417,10 +454,10 @@ function smartcms_scwspd_fontend_single(){
 									<?php
 								}
 								?>
-								<div class="scwspd_right_item_add <?php if($check==0) echo 'active' ?>">
+<!-- 								<div class="scwspd_right_item_add <?php if($check==0) echo 'active' ?>">
 									<img src="<?php echo $img->url; ?>"><br>
 									<span><?php echo $img->title; ?></span>
-								</div>
+								</div> -->
 								<?php
 								$check++;
 							}
@@ -463,11 +500,16 @@ function scwspd_product_image( $_product_img, $cart_item, $cart_item_key ){
 			
 			$designs .= "<div class='scwspd_yourdesign_item'>";
 			$checkdataimages = explode("#", $dataimages);
+			//var_dump($checkdataimages);
 			foreach($checkdataimages as $image){
-				$designs .= '<a class="scwspd_group" href="'.$image.'"><img src="'.$image.'"></a>';
+				$cc = explode("data:", $image);
+				//var_dump($cc[1]);
+				if($cc[1] !=','):
+					$designs .= '<a class="scwspd_group" href="'.$image.'"><img src="'.$image.'"></a>';
+				endif;
 			}
-			$designs .= "<br><span class='scwspd_yourdesign_item_title'>".$ctitle."</span>";
-			$designs .= "<span class='scwspd_yourdesign_item_color' style='background: ".$ccolor."'>".$ccolor."</span>";
+			//$designs .= "<br><span class='scwspd_yourdesign_item_title'>".$ctitle."</span>";
+			//$designs .= "<span class='scwspd_yourdesign_item_color' style='background: ".$ccolor."'>".$ccolor."</span>";
 			$checkQtys = explode("&", $qtys);
 			foreach($checkQtys as $qty){
 				$designs .= "<br><span class='scwspd_yourdesign_item_qty'>". str_replace("#", " - ", $qty) ."</span>";

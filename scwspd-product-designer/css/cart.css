@@ -4,7 +4,7 @@
     color: #000;
 }
 .scwspd_group {
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
     box-shadow: none !important;
     float: left;
     margin: 5px;
@@ -20,7 +20,7 @@
     width: 30px;
 }
 .scwspd_yourdesign_item {
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
     float: left;
     margin-top: 5px;
     width: 100%;
