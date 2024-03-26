@@ -1,5 +1,8 @@
 <?php 
 
+function addcart_button_hook() {
+      do_action('addcart_button_hook');
+}
 function design_title_hook() {
     	do_action('design_title_hook');
 }
@@ -28,6 +31,8 @@ function my_remove_variation_price() {
   	
   	add_action( 'woocommerce_before_single_product_summary', 'woocommerce_template_single_add_to_cart', 25 );
     add_action( 'woocommerce_before_single_product_summary', 'add_render_button', 26 );
+
+    add_action( 'addcart_button_hook', 'woocommerce_template_single_add_to_cart', 5 );
   }
 } 
 

@@ -11,7 +11,7 @@
 	<div class="title_divide"></div>
 </div>
 
-<div class="row content-row mb-0">
+<div class="row content-row mb-0 product-wrap">
 
 	<div class="product-gallery large-<?php echo flatsome_option('product_image_width'); ?> col">
 	<?php

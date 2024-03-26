@@ -428,6 +428,10 @@ function smartcms_scwspd_fontend_single(){
 		$firstColor_text = "";
 
 		?>
+		<div class="smartcms_navigate" data-pagenum="0">
+			<span id="navigate_back">back</span>
+			<span id="navigate_next">next</span>
+		</div>
 		<div class="smartcms_content" style="display:none">
 			<input type="hidden" class="smartcms_url" value="<?php echo SMARTCMS_SCWSPD_URL ?>">
 			<input type="hidden" class="smartcms_proid" value="<?php echo $proId ?>">
@@ -436,63 +440,69 @@ function smartcms_scwspd_fontend_single(){
 
 			
 			<div class="smartcms_content_left">
-				<div class="scwspd_choose_color">
+				<div class="scwspd_choose_color navigate_content navigate_content_0" data-content="0">
 					<div class="scwspd_choose_color_header">
 						<img class="scwspd_header_img" src="<?php echo SMARTCMS_SCWSPD_URL ?>images/color-icon.jpg">
 						<span class="scwspd_header_text">Choose the background Color</span>
 					</div>
-					<?php
-					foreach($colors as $key=>$color){
-						if($key == 0) $firstColor = $color;
-						?>
-						<div class="scwspd_choose_color_item <?php if($key==0) echo 'active' ?>">
-							<span style="background: <?php echo $color ?>"><?php echo $color ?></span>
-						</div>
+					<div class="viewport">
 						<?php
-					}
-					?>
+						foreach($colors as $key=>$color){
+							if($key == 0) $firstColor = $color;
+							?>
+							<div class="scwspd_choose_color_item <?php if($key==0) echo 'active' ?>">
+								<span style="background: <?php echo $color ?>"><?php echo $color ?></span>
+							</div>
+							<?php
+						}
+						?>
+					</div>
 				</div>
 				
 				<!-- pattern -->
-				<div class="scwspd_choose_color_pattern">
+				<div class="scwspd_choose_color_pattern  navigate_content navigate_content_1 content_hide" data-content="1">
 					<div class="scwspd_choose_color_header">
 						<img class="scwspd_header_img" src="<?php echo SMARTCMS_SCWSPD_URL ?>images/color-icon.jpg">
 						<span class="scwspd_header_text">Choose the background pattern</span>
 					</div>
-					<?php
-					foreach($colors_pattern as $key=>$color_pattern){
-						if($key == 0) $firstColor_pattern = $color_pattern;
-						?>
-						<div class="scwspd_choose_color_item_pattern">
-							<span data-pat="<?php echo $color_pattern; ?>" class="pattern_bg" style=" background: url(<?php echo $color_pattern; ?>);"><?php echo $color_pattern; ?></span>
-						</div>
+					<div class="viewport">
 						<?php
-					}
-					?>
+						foreach($colors_pattern as $key=>$color_pattern){
+							if($key == 0) $firstColor_pattern = $color_pattern;
+							?>
+							<div class="scwspd_choose_color_item_pattern">
+								<span data-pat="<?php echo $color_pattern; ?>" class="pattern_bg" style=" background: url(<?php echo $color_pattern; ?>);"><?php echo $color_pattern; ?></span>
+							</div>
+							<?php
+						}
+						?>
+					</div>
 				</div>
 
 				<!-- graphics -->
-				<div class="scwspd_choose_color_graphics">
+				<div class="scwspd_choose_color_graphics navigate_content navigate_content_2 content_hide" data-content="2">
 					<div class="scwspd_choose_color_header">
 						<!-- <img class="scwspd_header_img" src="<?php echo SMARTCMS_SCWSPD_URL ?>images/color-icon.jpg"> -->
 						<span class="scwspd_header_text">Add some graphics</span>
 					</div>
 					<!-- <div class="scwspd_choose_color_graphics_slick"> -->
-					<?php
-					foreach($colors_graphics as $key=>$color_graphics){
-						if($key == 0) $firstColor_graphics = $color_graphics;
-						?>
-						<div class="scwspd_choose_color_item_graphics">
-							<span data-pat="<?php echo $color_graphics; ?>" class="graphics_bg" style=" background: url(<?php echo $color_graphics; ?>);"><?php echo $color_graphics; ?></span>
-						</div>
+					<div class="viewport">
 						<?php
-					}
-					?>
+						foreach($colors_graphics as $key=>$color_graphics){
+							if($key == 0) $firstColor_graphics = $color_graphics;
+							?>
+							<div class="scwspd_choose_color_item_graphics">
+								<span data-pat="<?php echo $color_graphics; ?>" class="graphics_bg" style=" background: url(<?php echo $color_graphics; ?>);"><?php echo $color_graphics; ?></span>
+							</div>
+							<?php
+						}
+						?>
+					</div>
 					<!-- </div> -->
 				</div>
 
 				<!-- text -->
-				<div class="scwspd_add_text">
+				<div class="scwspd_add_text navigate_content navigate_content_3 content_hide" data-content="3">
 					<div class="scwspd_add_text_header">
 						<img class="scwspd_header_img" src="<?php echo SMARTCMS_SCWSPD_URL ?>images/text-icon.jpg">
 						<span class="scwspd_header_text">You can also add some text (max.40 characters)</span>
@@ -503,11 +513,14 @@ function smartcms_scwspd_fontend_single(){
 						<span class="scwspd_at_button">Add</span>
 					</div>
 
+				</div> 
+				<div class="scwspd_add_text navigate_content navigate_content_4 content_hide" data-content="4">
+
 					<div class="scwspd_choose_color_header">
 						<img class="scwspd_header_img" src="<?php echo SMARTCMS_SCWSPD_URL ?>images/color-icon.jpg">
 						<span class="scwspd_header_text">Now choose the text color</span>
 					</div>
-
+					<div class="viewport">
 						<?php
 						foreach($colors_text as $key=>$color){
 							if($key == 0) $firstColor = $color;
@@ -518,6 +531,7 @@ function smartcms_scwspd_fontend_single(){
 							<?php
 						}
 						?>
+					</div>
 
 				</div>
 
@@ -542,7 +556,7 @@ function smartcms_scwspd_fontend_single(){
 
 
 				<?php if($qtys){ ?>
-				<div class="scwspd_qty">
+				<div class="scwspd_qty navigate_content navigate_content_5 content_hide" data-content="5">
 					<div class="scwspd_qty_header">
 						
 						<span class="scwspd_header_text">Do you want matching postcards?</span>
@@ -565,6 +579,13 @@ function smartcms_scwspd_fontend_single(){
 					</div>
 				</div>
 				<?php } ?>
+
+				<div class="scwspd_preview_content navigate_content_6 content_hide" data-content="6">
+					<span class="scwspd_preview_content_use">Render Design</span>
+						<?php 
+							do_action('addcart_button_hook');
+						?>
+				</div>
 
 				<div class="scwspd_preview">
 <!-- 					<div class="scwspd_preview_header">

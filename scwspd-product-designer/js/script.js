@@ -1,6 +1,80 @@
 
+
+
 jQuery(document).ready(function(){
 
+
+// var viewport = document.createElement("meta");
+// viewport.setAttribute("name", "viewport");
+// if (screen.width < 500) {
+//     viewport.setAttribute("content", "width=500");
+// } else {
+//     viewport.setAttribute("content", "width=device-width, initial-scale=1");
+// }
+// document.head.appendChild(viewport);
+
+/*
+ * windowSize
+ * call this function to get windowSize any time
+ */
+function windowSize() {
+  windowHeight = window.innerHeight ? window.innerHeight : jQuery(window).height();
+  windowWidth = window.innerWidth ? window.innerWidth : jQuery(window).width();
+
+}
+
+//Init Function of init it wherever you like...
+windowSize();
+
+// For example, get window size on window resize
+jQuery(window).resize(function() {
+  windowSize();
+  //console.log('width is :', windowWidth, 'Height is :', windowHeight);
+  if (windowWidth < 768) {
+    //console.log('width is under 768px !');
+    // jQuery('.smartcms_navigate').show();
+    // //jQuery('.navigate_content').hide();
+
+    // var datapagenum = jQuery('.smartcms_navigate').attr('data-pagenum');
+    // console.log(datapagenum);
+    //jQuery('.navigate_content').attr('data-pagenum');
+  }
+});
+
+
+jQuery('#navigate_back').css('visibility', 'hidden');
+jQuery('#navigate_next').click(function(event) {
+	var datapagenum = jQuery(this).parent('.smartcms_navigate').attr('data-pagenum');
+	console.log(datapagenum);
+	var pagenum = parseInt(datapagenum)+1;
+	console.log(pagenum);
+	jQuery('#navigate_back').css('visibility', 'initial');
+	jQuery('.navigate_content_'+datapagenum).addClass('content_hide');
+	jQuery('.navigate_content_'+pagenum).removeClass('content_hide');
+	jQuery(this).parent('.smartcms_navigate').attr('data-pagenum', pagenum);
+
+	if(datapagenum == '5') {
+		jQuery(this).css('visibility', 'hidden');
+	}
+});
+jQuery('#navigate_back').click(function(event) {
+	var datapagenum = jQuery(this).parent('.smartcms_navigate').attr('data-pagenum');
+	console.log(datapagenum);
+	if(datapagenum == '1') {
+		jQuery('#navigate_back').css('visibility', 'hidden');
+	}
+	var pagenum = parseInt(datapagenum)-1;
+	console.log(pagenum);
+	
+	jQuery('.navigate_content_'+datapagenum).addClass('content_hide');
+	jQuery('.navigate_content_'+pagenum).removeClass('content_hide');
+	jQuery(this).parent('.smartcms_navigate').attr('data-pagenum', pagenum);
+
+	if(datapagenum == '6') {
+		jQuery('#navigate_next').css('visibility', 'initial');
+	}
+});
+//jQuery('.smartcms_navigate').hide();
 
 	// jQuery('.scwspd_choose_color_graphics_slick').slick({
 	//   infinite: true,
