@@ -229,10 +229,10 @@ if($task == "add_image"){
 	$proid = $_POST["proid"];
 	$dulieu = $_POST["dulieu"];
 	
-	if(isset($_SESSION["scwspdimages".$proid])){
-		$s = $_SESSION["scwspdimages".$proid]."$".$dulieu;
-		$_SESSION["scwspdimages".$proid] = $s;
-	}else
+	// if(isset($_SESSION["scwspdimages".$proid])){
+	// 	$s = $_SESSION["scwspdimages".$proid]."$".$dulieu;
+	// 	$_SESSION["scwspdimages".$proid] = $s;
+	// }else
 		$_SESSION["scwspdimages".$proid] = $dulieu;
 
 }elseif($task == "delete_preview"){
@@ -242,31 +242,31 @@ if($task == "add_image"){
 	$imgs = $_POST["imgs"];
 	
 	$newArr = "";
-	if(isset($_SESSION["scwspdimages".$proid])){
-		$scwspdimages = explode("$", $_SESSION["scwspdimages".$proid]);
-		foreach($scwspdimages as $img){
-			if($img){
-				$checkImg = explode("@", $img);
-				$dataimages = $checkImg[0];
-				$ccolor = $checkImg[1];
-				$ctitle = $checkImg[3];
+	// if(isset($_SESSION["scwspdimages".$proid])){
+	// 	$scwspdimages = explode("$", $_SESSION["scwspdimages".$proid]);
+	// 	foreach($scwspdimages as $img){
+	// 		if($img){
+	// 			$checkImg = explode("@", $img);
+	// 			$dataimages = $checkImg[0];
+	// 			$ccolor = $checkImg[1];
+	// 			$ctitle = $checkImg[3];
 				
-				if($title == $ctitle && $color == $ccolor){
-					$checkdataimages = explode("#", $dataimages);
-					$imgs = explode("#", $imgs);
+	// 			if($title == $ctitle && $color == $ccolor){
+	// 				$checkdataimages = explode("#", $dataimages);
+	// 				$imgs = explode("#", $imgs);
 					
-					$checkImgArr = ($checkdataimages == $imgs);
-					if($checkImgArr){
-						$a = 1;
-					}else{
-						$newArr .= "$".$img;
-					}
-				}else{
-					$newArr .= "$".$img;
-				}
-			}
-		}
-	}
+	// 				$checkImgArr = ($checkdataimages == $imgs);
+	// 				if($checkImgArr){
+	// 					$a = 1;
+	// 				}else{
+	// 					$newArr .= "$".$img;
+	// 				}
+	// 			}else{
+	// 				$newArr .= "$".$img;
+	// 			}
+	// 		}
+	// 	}
+	// }
 	echo 1;
 	$_SESSION["scwspdimages".$proid] = $newArr;
 	

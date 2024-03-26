@@ -267,6 +267,10 @@
     position: absolute;
     top: 0;
 	border: 1px solid #ccc;
+max-width: 50%;
+    max-height: 50%;
+    top: 25% !important;
+    left: 25% !important;
 }
 .ui-resizable-se {
     background: rgba(0, 0, 0, 0) url("../images/resize-icon.png") no-repeat scroll 0 0;

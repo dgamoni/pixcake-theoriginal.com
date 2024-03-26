@@ -146,7 +146,17 @@ jQuery(document).ready(function(){
 						jQuery(".smartcms_content_right").append("<div class='scwspd_image_right scwspd_image_right"+checkSize+"'>"+
 							"<img src='"+bgurl+"'>"+
 						"</div>");
-						jQuery( ".scwspd_image_right"+checkSize ).resizable().draggable();
+						// jQuery( ".scwspd_image_right"+checkSize ).resizable().draggable();
+						jQuery( ".scwspd_image_right"+checkSize ).draggable(
+							    {
+							        drag: function(){
+							            var offset = $(this).offset();
+							            var xPos = offset.left;
+							            var yPos = offset.top;
+							            $('#posX').text('x: ' + xPos);
+							            $('#posY').text('y: ' + yPos);
+							        }
+							    });
 					}
 
 			}	
@@ -256,41 +266,88 @@ jQuery(document).ready(function(){
 
 	});
 
+// javascript function that uploads a blob to upload.php
+function uploadBlob(blobs, id){
+    // create a blob here for testing
+    //var blob = new Blob(["i am a blob"]);
+    var blob = blobs;
+    //var blob = yourAudioBlobCapturedFromWebAudioAPI;// for example   
+    var reader = new FileReader();
+    // this function is triggered once a call to readAsDataURL returns
+    reader.onload = function(event){
+        var fd = new FormData();
+        fd.append('fname', 'test.txt');
+        fd.append('data', event.target.result);
+        jQuery.ajax({
+            type: 'POST',
+            url: url+'upload.php',
+            data: fd,
+            processData: false,
+            contentType: false
+        }).done(function(data) {
+            // print the output from the upload.php script
+            //console.log(data);
+            jQuery('.smartcms_pdf').val(data);
+            //return data;
+        });
+    };      
+    // trigger the read from the reader...
+    reader.readAsDataURL(blob);
+
+}
+
 	function renderSecondImage(){
 		//jQuery(".scwspd_right_item.active").children(".scwspd_right_item_main").children("img").css("opacity", "0");
 		html2canvas(jQuery(".smartcms_content_right"), {
 			onrendered: function(canvas2){
 				var fimage = jQuery(".smartcms_firstimage").val();
+
 				//console.log(fimage);
 				 var color = jQuery(".scwspd_choose_color_item.active").children("span").text();
 				 var title = jQuery(".scwspd_right_item.active").children(".scwspd_right_item_add.active").children("span").text();
 				 var qtys = "";
 				 
-				 jQuery(".scwspd_qty_item").each(function(){
-					 var label = jQuery(this).children("label").text();
-					 var input = jQuery(this).children("input").val();
+				 // jQuery(".scwspd_qty_item").each(function(){
+					//  var label = jQuery(this).children("label").text();
+					//  var input = jQuery(this).children("input").val();
 					 
-					 if(input){
-						 if(qtys)
-							 qtys += "&"+label+"#"+input;
-						 else
-							 qtys = label+"#"+input;
-					 }
-				 });
+					//  if(input){
+					// 	 if(qtys)
+					// 		 qtys += "&"+label+"#"+input;
+					// 	 else
+					// 		 qtys = label+"#"+input;
+					//  }
+				 // });
 				 
-				 var dulieu = fimage+"#"+canvas2.toDataURL("image/png")+"@"+color+"@"+qtys+"@"+title;
+				 // var dulieu = fimage+"#"+canvas2.toDataURL("image/png")+"@"+color+"@"+qtys+"@"+title;
+				
 				 var imgData = canvas2.toDataURL("image/png",);
 					var pdf = new jsPDF('l', 'mm', [132, 132]);
 					pdf.addImage(imgData, 'PNG', 0, 0, 132, 132);
 		           var blob = pdf.output("blob");
 		           var blobURL = URL.createObjectURL(blob);
 
+		            
+
+		            uploadBlob(blob);
+		            var file_pdf = jQuery(".smartcms_pdf").val();
+
+		            var dulieu = "#"+fimage+"@"+file_pdf;
+
+		            //console.log(uploadBlob(blob));
+
+		  //      var fd = new FormData();
+				// fd.append('fname', 'test.pdf');
+				// fd.append('data', blobURL);
+
+
 				 jQuery.ajax({
 					url: url+"helper.php",
 					data: {
 						proid: proid,
 						dulieu: dulieu,
-						bloburl: blobURL,
+						blob: blob,
+						pdf: file_pdf,
 						task : "save_preview"
 					},
 					type: 'POST',
@@ -320,7 +377,7 @@ jQuery(document).ready(function(){
 										"<img src='"+fimage+"'>"+
 									"</a>"+
 								'</div>'+
-								'<a href="'+blobURL+'" target="_blank" id="pdf-download-link" title="Download PDF File">Download PDF file</a>'+
+								'<a data-pdf="'+file_pdf+'" href="'+blobURL+'" target="_blank" id="pdf-download-link" title="Download PDF File">Download PDF file</a>'+
 								'<div class="scwspd_preview_item_left_quantity">'+
 									
 								'</div>'+

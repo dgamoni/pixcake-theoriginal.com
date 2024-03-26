@@ -11,6 +11,8 @@
  
 define ( 'SMARTCMS_SCWSPD_URL', plugin_dir_url(__FILE__));
 
+
+
 function scwspd_boot_session() {
   session_start();
 }
@@ -361,6 +363,8 @@ function smartcms_scwspd_fontend_single(){
 
 	if($images){
 		
+
+
 		update_post_meta($proId, 'scwspd_images', 'designer_enable');
 
 		wp_register_script('scwspd-nicedit', SMARTCMS_SCWSPD_URL .'js/nicEdit.js');
@@ -425,6 +429,7 @@ function smartcms_scwspd_fontend_single(){
 			<input type="hidden" class="smartcms_url" value="<?php echo SMARTCMS_SCWSPD_URL ?>">
 			<input type="hidden" class="smartcms_proid" value="<?php echo $proId ?>">
 			<input type="hidden" class="smartcms_firstimage" value="">
+			<input type="hidden" class="smartcms_pdf" value="">
 
 			
 			<div class="smartcms_content_left">
@@ -564,12 +569,17 @@ function smartcms_scwspd_fontend_single(){
 						<span class="scwspd_preview_content_use">Render Design</span>
 					</div>
 					<div class="scwspd_preview_items">
-					<?php unset($_SESSION["scwspdimages".$proId]);
+					<?php //unset($_SESSION["scwspdimages".$proId]);
 //var_dump($_SESSION);
 						if(isset($_SESSION["scwspdimages".$proId])){
 							$secimages = $_SESSION["scwspdimages".$proId];
 							//var_dump( $secimages );
 							$scwspdimages = explode("$", $secimages);
+
+							
+
+
+							//var_dump($scwspdimages);
 							foreach($scwspdimages as $img){
 								$checkImg = explode("@", $img);
 								$dataimages = $checkImg[0];
@@ -586,11 +596,16 @@ function smartcms_scwspd_fontend_single(){
 										<div class="scwspd_preview_item_left_images">
 											<?php
 											$checkdataimages = explode("#", $dataimages);
+											//var_dump($checkdataimages);
 											foreach($checkdataimages as $img){
+												if($img):
+
 												?><a class="scwspd_group" href="<?php echo $img ?>"><img src="<?php echo $img ?>"></a><?php
+												endif;
 											}
 											?>
 										</div>
+										<a href="<?php echo $color; ?>" target="_blank" id="pdf-download-link" title="Download PDF File">Download PDF file</a>
 										<div class="scwspd_preview_item_left_quantity">
 											<?php
 											$checkQty = explode("&", $qtys);
@@ -680,7 +695,7 @@ function scwspd_product_image( $_product_img, $cart_item, $cart_item_key ){
 			foreach($checkdataimages as $image){
 				$cc = explode("data:", $image);
 				//var_dump($cc[1]);
-				if($cc[1] !=','):
+				if($image):
 					$designs .= '<a class="scwspd_group" href="'.$image.'"><img src="'.$image.'"></a>';
 				endif;
 			}
@@ -700,7 +715,7 @@ function scwspd_product_image( $_product_img, $cart_item, $cart_item_key ){
 }
 add_filter( 'woocommerce_cart_item_thumbnail', 'scwspd_product_image', 10, 3 );
 
-add_action( 'woocommerce_before_calculate_totals', 'scwspd_add_custom_price' );
+//add_action( 'woocommerce_before_calculate_totals', 'scwspd_add_custom_price' );
 function scwspd_add_custom_price( $cart_object ){
 	global $wpdb;
 	
@@ -766,7 +781,9 @@ function scwspd_order_complete( $link, $item ){
 				$designs .= "<div class='scwspd_yourdesign_item'>";
 				$checkdataimages = explode("#", $dataimages);
 				foreach($checkdataimages as $image){
-					$designs .= '<a class="scwspd_group" href="'.$image.'"><img src="'.$image.'"></a>';
+					if($image):
+						$designs .= '<a class="scwspd_group" href="'.$image.'"><img src="'.$image.'"></a>';
+					endif;
 				}
 				$designs .= "<br><br><span class='scwspd_yourdesign_item_title'>".$ctitle."</span>";
 				$designs .= "<span class='scwspd_yourdesign_item_color' style='background: ".$ccolor."'>".$ccolor."</span><br>";
@@ -825,14 +842,19 @@ function scwspd_admin_edit_order( $item_id, $item, $product ){
 			$ctitle = $checkImg[3];
 			$qtys = $checkImg[2];
 			
+			var_dump($checkImg);
+
 			$designs .= "<div class='scwspd_yourdesign_item'>";
 			$checkdataimages = explode("#", $dataimages);
 			foreach($checkdataimages as $image){
-				$designs .= '<a class="scwspd_group" href="'.$image.'"><img src="'.$image.'"></a>';
+				if($image):
+					$designs .= '<a class="scwspd_group" href="'.$image.'"><img src="'.$image.'"></a>';
+				endif;
 			}
-			$designs .= "<br><br><span class='scwspd_yourdesign_item_title'>".$ctitle."</span>";
-			$designs .= "<span class='scwspd_yourdesign_item_color' style='background: ".$ccolor."'>".$ccolor."</span><br>";
-			$checkQtys = explode("&", $qtys);
+			$designs .='<a href="'.$ccolor.'" target="_blank" id="" title="PDF File">PDF file</a>';
+			//$designs .= "<br><br><span class='scwspd_yourdesign_item_title'>".$ctitle."</span>";
+			//$designs .= "<span class='scwspd_yourdesign_item_color' style='background: ".$ccolor."'>".$ccolor."</span><br>";
+			//$checkQtys = explode("&", $qtys);
 			foreach($checkQtys as $qty){
 				$designs .= "<br><span class='scwspd_yourdesign_item_qty'>". str_replace("#", " - ", $qty) ."</span>";
 			}

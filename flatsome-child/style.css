@@ -6,10 +6,107 @@ Template: flatsome
 Version: 3.0
 */
 
-/*************** ADD CUSTOM CSS HERE.   ***************/
+/* custom fonts */
+
+@font-face {
+  font-family: 'AzoSans-Regular';
+  src: url('fonts/AzoSans-Regular.eot');
+  src: url('fonts/AzoSans-Regular.woff2') format('woff2'),
+       url('fonts/AzoSans-Regular.woff') format('woff'),
+       url('fonts/AzoSans-Regular.ttf') format('truetype'),
+       url('fonts/AzoSans-Regular.svg#AzoSans-Regular') format('svg'),
+       url('fonts/AzoSans-Regular.eot?#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'AzoSans-Bold';
+  src: url('fonts/AzoSans-Bold.eot');
+  src: url('fonts/AzoSans-Bold.woff2') format('woff2'),
+       url('fonts/AzoSans-Bold.woff') format('woff'),
+       url('fonts/AzoSans-Bold.ttf') format('truetype'),
+       url('fonts/AzoSans-Bold.svg#AzoSans-Bold') format('svg'),
+       url('fonts/AzoSans-Bold.eot?#iefix') format('embedded-opentype');
+  font-weight: bold;
+  font-style: bold;
+}
+@font-face {
+  font-family: 'AzoSans-Medium';
+  src: url('fonts/AzoSans-Medium.eot');
+  src: url('fonts/AzoSans-Medium.woff2') format('woff2'),
+       url('fonts/AzoSans-Medium.woff') format('woff'),
+       url('fonts/AzoSans-Medium.ttf') format('truetype'),
+       url('fonts/AzoSans-Medium.svg#AzoSans-Medium') format('svg'),
+       url('fonts/AzoSans-Medium.eot?#iefix') format('embedded-opentype');
+  font-weight: medium;
+  font-style: medium;
+}
+@font-face {
+  font-family: 'AzoSans-Thin';
+  src: url('fonts/AzoSans-Thin.eot');
+  src: url('fonts/AzoSans-Thin.woff2') format('woff2'),
+       url('fonts/AzoSans-Thin.woff') format('woff'),
+       url('fonts/AzoSans-Thin.ttf') format('truetype'),
+       url('fonts/AzoSans-Thin.svg#AzoSans-Thin') format('svg'),
+       url('fonts/AzoSans-Thin.eot?#iefix') format('embedded-opentype');
+  font-weight: light;
+  font-style: light;
+}
+@font-face {
+  font-family: 'coffee-tea-italic';
+  src: url('fonts/coffee-tea-italic.eot');
+  src: url('fonts/coffee-tea-italic.woff2') format('woff2'),
+       url('fonts/coffee-tea-italic.woff') format('woff'),
+       url('fonts/coffee-tea-italic.ttf') format('truetype'),
+       url('fonts/coffee-tea-italic.svg#coffee-tea-italic') format('svg'),
+       url('fonts/coffee-tea-italic.eot?#iefix') format('embedded-opentype');
+  font-weight: italic;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'coffee-tea-Medium';
+  src: url('fonts/coffee-tea-Medium.eot');
+  src: url('fonts/coffee-tea-Medium.woff2') format('woff2'),
+       url('fonts/coffee-tea-Medium.woff') format('woff'),
+       url('fonts/coffee-tea-Medium.ttf') format('truetype'),
+       url('fonts/coffee-tea-Medium.svg#coffee-tea-Medium') format('svg'),
+       url('fonts/coffee-tea-Medium.eot?#iefix') format('embedded-opentype');
+  font-weight: medium;
+  font-style: medium;
+}
+
+body{font-family:  "AzoSans-Regular",  sans-serif}
+.nav > li > a {font-family:  "AzoSans-Regular", sans-serif;}
+h1,h2,h3, .heading-font{font-family: "AzoSans-Regular", sans-serif;}
+h4,h5,h6, .heading-font{font-family: "coffee-tea-Medium", sans-serif;}
+.alt-font{font-family: "AzoSans-Regular", sans-serif;}
+
+
+/* top bar */
 .header-top {
 	background-image: url("https://pixcake-theoriginal.com/wp-content/uploads/2017/11/bts-30px.svg");
     background-color: #D51D5B!important;
+}
+
+
+/* Post slider HP */
+.recent-post-slider.design-4 .post-list-content .wp-post-title a {
+    color: #fff;
+    text-decoration: none;
+}
+.wp-sub-content {
+	color: #000;
+}
+.recent-post-slider.design-4 .wp-post-content a.readmorebtn {
+    color: #fff;
+    border-color: #fff;
+}
+.recent-post-slider .recentpost-categories ul.post-categories li:nth-child(4n+1) a {
+    background: #fff;
+	color: #23B3BE;
+}
+.recent-post-slider.design-4 .post-list-content .wp-medium-7 {
+    padding: 35px 35px 10px 15px;
 }
 
 
