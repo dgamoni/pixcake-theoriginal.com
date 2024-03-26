@@ -1,9 +1,9 @@
 <?php
 /**
-* Plugin Name: Simple Product Designer for WooCommerce
+* Plugin Name: Simple Product Designer
 * Plugin URI: http://codecanyon.net/user/smartcms
-* Description: allow clients design directly on product page
-* Version: 1.0
+* Description: Allow clients design directly on product page for pixcake-theoriginal.com
+* Version: 99.0
 * Author: SmartCms Team
 * Author URI: http://codecanyon.net/user/smartcms
 * License: GPLv2 or later
@@ -25,10 +25,20 @@ function smartcms_scwspd_install(){
 	global $wnm_db_version;
 	
 	$table_name = $wpdb->prefix . 'scwspd_images';
+	$table_name_pattern = $wpdb->prefix . 'scwspd_images_pattern';
 	$table_name2 = $wpdb->prefix . 'scwspd_quantity';
 	$table_name3 = $wpdb->prefix . 'scwspd_order';
 	
 	$sql = "CREATE TABLE $table_name (
+		`ID` int(11) NOT NULL AUTO_INCREMENT,
+		`proId` int(11) DEFAULT NULL,
+		`title` varchar(255) DEFAULT NULL,
+		`url` varchar(255) DEFAULT NULL,
+		`color` varchar(255) DEFAULT NULL,
+		PRIMARY KEY (`id`)
+	) $charset_collate;";
+
+	$sql_pattern = "CREATE TABLE $table_name_pattern (
 		`ID` int(11) NOT NULL AUTO_INCREMENT,
 		`proId` int(11) DEFAULT NULL,
 		`title` varchar(255) DEFAULT NULL,
@@ -57,6 +67,7 @@ function smartcms_scwspd_install(){
 	dbDelta($sql);
 	dbDelta($sql2);
 	dbDelta($sql3);
+	dbDelta($sql_pattern);
 	
 	add_option("wnm_db_version", $wnm_db_version);
 }
@@ -89,7 +100,7 @@ class scwspd_class extends WP_Widget {
 	function scwspd_add_tab_admin_product($post_type, $post)
 	{
 		global $wp_meta_boxes;
-		$wp_meta_boxes[ 'product' ][ 'normal' ][ 'core' ][ 'smartcms_scwspd' ][ 'title' ] = "SmartCms Product Designer";
+		$wp_meta_boxes[ 'product' ][ 'normal' ][ 'core' ][ 'smartcms_scwspd' ][ 'title' ] = "Product Designer";
 		$wp_meta_boxes[ 'product' ][ 'normal' ][ 'core' ][ 'smartcms_scwspd' ][ 'id' ] = "smartcms_scwspd";
 		$wp_meta_boxes[ 'product' ][ 'normal' ][ 'core' ][ 'smartcms_scwspd' ][ 'callback' ] = "scwspd_add_tab_admin_product_display";
 	}
@@ -118,14 +129,19 @@ function scwspd_add_tab_admin_product_display(){
 	
 		$tableImagesName = $wpdb->prefix . 'scwspd_images';
 		$checkImages = $wpdb->get_results("SELECT * from $tableImagesName where proId = ".$postId);
-		
+
+		$tableImagesName_pattern = $wpdb->prefix . 'scwspd_images_pattern';
+		$checkImages_pattern = $wpdb->get_results("SELECT * from $tableImagesName_pattern where proId = ".$postId);
+
 		$tableQty = $wpdb->prefix . 'scwspd_quantity';
 		$qtys = $wpdb->get_results("SELECT * from $tableQty where proId = ".$postId);
 		?>
 		<div class="smartcms_admin_page">
 			<input type="hidden" class="scwspd_product_id" value="<?php echo $postId ?>">
+			
+			<!-- Background -->
 			<div class="scwspd_upload">
-				<span class="scwspd_upload_header">Images Manage</span>
+				<span class="scwspd_upload_header">Background Color Manage</span>
 				<div class="scwspd_upload_add">
 					<input class="scwspd_upload_add_color" placeholder="Color" type="color">
 					<input class="scwspd_upload_add_title" placeholder="Title">
@@ -154,6 +170,38 @@ function scwspd_add_tab_admin_product_display(){
 			}
 			?>
 			</div>
+			<!-- pattern -->
+			<div class="scwspd_upload_pattern">
+				<span class="scwspd_upload_header">Pattern Manage</span>
+				<div class="scwspd_upload_add_pattern">
+					<input class="scwspd_upload_add_color_pattern" placeholder="Color" type="color">
+					<input class="scwspd_upload_add_title_pattern" placeholder="Title">
+					<input class="scwspd_upload_add_image_pattern">
+					<span class="scwspd_upload_add_upload_pattern">Choose Image</span>
+					<span class="scwspd_upload_add_button_pattern">Add</span>
+				</div>
+			</div>
+			<div class="scwspd_images_pattern">
+			<?php
+			if($checkImages_pattern){
+				foreach($checkImages_pattern as $image){
+					?>
+					<div class="scwspd_images_item_pattern">
+						<input type="hidden" value="<?php echo $image->ID ?>" class="scwspd_images_item_id_pattern">
+						<img src="<?php echo $image->url ?>" class="scwspd_images_item_preview_pattern">
+						<input class="scwspd_images_item_color_pattern" type="color" value="<?php echo $image->color ?>" name="scwspd_images_item_color">
+						<input class="scwspd_images_item_title_pattern" placeholder="Title" value="<?php echo $image->title ?>" name="scwspd_images_item_title">
+						<input class="scwspd_images_item_image_pattern" value="<?php echo $image->url ?>" name="scwspd_images_item_image">
+						<span class="scwspd_images_item_upload_pattern">Choose Image</span>
+						<span class="scwspd_images_item_save_pattern">Save</span>
+						<span class="scwspd_images_item_delete_pattern">Delete</span>
+					</div>
+					<?php
+				}
+			}
+			?>
+			</div>
+			<!-- qty -->
 			<div class="scwspd_qtymanage">
 				<div class="scwspd_qtymanage_add">
 					<span class="scwspd_qtymanage_add_header">Quantity Manage</span>
@@ -234,7 +282,7 @@ function smartcms_scwspd_fontend_single(){
 				<div class="scwspd_choose_color">
 					<div class="scwspd_choose_color_header">
 						<img class="scwspd_header_img" src="<?php echo SMARTCMS_SCWSPD_URL ?>images/color-icon.jpg">
-						<span class="scwspd_header_text">Choose Product Color</span>
+						<span class="scwspd_header_text">Choose the background Color</span>
 					</div>
 					<?php
 					foreach($colors as $key=>$color){
@@ -262,6 +310,16 @@ function smartcms_scwspd_fontend_single(){
 						<span class="scwspd_header_text">Upload Images</span>
 					</div>
 					<div class="scwspd_upload_image_content">
+					
+					<div class="scwspd_uploadimage_item scwspd_uploadimage_item0">
+						<label for="scwspd_uploadimage_file0">Choose a file</label>
+						<!-- <input id="scwspd_uploadimage_file0" type="file"> -->
+						<span id="scwspd_uploadimage_file0" type="file">img</span>
+						<span class="scwspd_uploadimage_delete">
+							<img id="image_scwspd_uploadimage_file0" src="https://pixcake-theoriginal.com/wp-content/plugins/scwspd-product-designer/images/delete-icon.png">
+						</span>
+					</div>
+
 						<span class="scwspd_uploadimage_button">Add Image</span>
 					</div>
 				</div>

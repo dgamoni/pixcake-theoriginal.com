@@ -2,6 +2,7 @@
 .smartcms_admin_page {
     display: inline-block;
 	width: 100%;
+    margin-top: 40px;
 }
 .scwspd_upload {
     float: left;
@@ -113,6 +114,7 @@
     border-top: 2px solid;
     float: left;
     width: 100%;
+        display: none;
 }
 .scwspd_qtymanage_add {
     float: left;
@@ -168,6 +170,192 @@
     width: 50px;
 }
 .scwspd_qtymanage_item_delete {
+    background: #a20000 none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    float: left;
+    height: 28px;
+    line-height: 28px;
+    margin-left: 5px;
+    margin-top: 1px;
+    text-align: center;
+    width: 70px;
+}
+
+
+/*pattern*/
+.smartcms_admin_page_pattern {
+    display: inline-block;
+    width: 100%;
+}
+.scwspd_upload_pattern {
+    float: left;
+    width: 100%;
+    margin-top: 40px;
+}
+.scwspd_upload_header_pattern {
+    float: left;
+    font-weight: bold;
+    width: 100%;
+}
+.scwspd_upload_add_pattern {
+    float: left;
+    margin-top: 5px;
+    width: 100%;
+}
+.scwspd_upload_add_title_pattern {
+    border: 1px solid #ccc;
+    float: left;
+}
+.scwspd_upload_add_image_pattern {
+    border: 1px solid #ccc;
+    float: left;
+}
+.scwspd_upload_add_upload_pattern {
+    background: teal none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    float: left;
+    height: 28px;
+    line-height: 28px;
+    margin-top: 1px;
+    text-align: center;
+    width: 100px;
+}
+.scwspd_upload_add_button_pattern {
+    background: #016200 none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    float: left;
+    height: 28px;
+    line-height: 28px;
+    margin-left: 5px;
+    margin-top: 1px;
+    text-align: center;
+    width: 50px;
+}
+.scwspd_upload_add_color_pattern {
+    float: left;
+    height: 28px;
+    display: none;
+}
+.scwspd_images_pattern {
+    border-top: 2px solid #ccc;
+    float: left;
+    margin-top: 20px;
+    width: 100%;
+}
+.scwspd_images_item_pattern {
+    border-bottom: 1px solid #ccc;
+    float: left;
+    height: 60px;
+    line-height: 60px;
+    margin-top: 10px;
+    width: 100%;
+}
+.scwspd_images_item_preview_pattern {
+    float: left;
+    height: 50px;
+}
+.scwspd_images_item_color_pattern{
+    margin-left: 10px;
+    display: none;
+}
+.scwspd_images_item_title_pattern,
+.scwspd_images_item_image_pattern {
+    margin-left: 10px;
+    border: 1px solid #ccc;
+}
+.scwspd_images_item_upload_pattern {
+    background: teal none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    width: 100px;
+}
+.scwspd_images_item_save_pattern {
+    background: #015400 none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    width: 50px;
+    margin-left: 10px;
+}
+.scwspd_images_item_delete_pattern {
+    background: #8c0000 none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    width: 70px;
+}
+.scwspd_qtymanage_pattern {
+    border-top: 2px solid;
+    float: left;
+    width: 100%;
+}
+.scwspd_qtymanage_add_pattern {
+    float: left;
+    margin-top: 5px;
+    width: 100%;
+}
+.scwspd_qtymanage_add_header_pattern {
+    float: left;
+    font-weight: bold;
+    margin-bottom: 5px;
+    width: 100%;
+}
+.scwspd_qtymanage_add_label_pattern, .scwspd_qtymanage_add_price_pattern {
+    border: 1px solid #ccc;
+    float: left;
+}
+.scwspd_qtymanage_add_button_pattern {
+    background: #015500 none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    float: left;
+    height: 28px;
+    line-height: 28px;
+    margin-top: 1px;
+    text-align: center;
+    width: 50px;
+}
+.scwspd_qtymanage_content_pattern {
+    border-top: 1px solid #ccc;
+    float: left;
+    margin-top: 10px;
+    width: 100%;
+}
+.scwspd_qtymanage_item_pattern {
+    float: left;
+    margin-top: 5px;
+    width: 100%;
+}
+.scwspd_qtymanage_item_label_pattern,
+.scwspd_qtymanage_item_price_pattern {
+    border: 1px solid #ccc;
+    float: left;
+}
+.scwspd_qtymanage_item_save_pattern {
+    background: teal none repeat scroll 0 0;
+    color: #fff;
+    cursor: pointer;
+    float: left;
+    height: 28px;
+    line-height: 28px;
+    margin-top: 1px;
+    text-align: center;
+    width: 50px;
+}
+.scwspd_qtymanage_item_delete_pattern {
     background: #a20000 none repeat scroll 0 0;
     color: #fff;
     cursor: pointer;

@@ -52,6 +52,27 @@ jQuery(document).ready(function(){
 		myNicEditor.addInstance(elthis.children(".scwspd_text_right_edit").attr("id"));	
 	}
 	
+
+
+
+	// var checkSize = '0';
+	// jQuery("#scwspd_uploadimage_file"+checkSize).click(function(){
+	// 	//if(this.files && this.files[0]){
+	// 		var reader = new FileReader();
+	// 		reader.onload = function (e){
+	// 			if( jQuery(".scwspd_image_right"+checkSize).size() > 0){
+	// 				jQuery(".scwspd_image_right"+checkSize).children("img").attr("src", e.target.result);
+	// 			}else{
+	// 				jQuery(".smartcms_content_right").append("<div class='scwspd_image_right scwspd_image_right"+checkSize+"'>"+
+	// 					"<img src='"+e.target.result+"'>"+
+	// 				"</div>");
+	// 				jQuery( ".scwspd_image_right"+checkSize ).resizable().draggable();
+	// 			}
+	// 		}
+	// 		reader.readAsDataURL(this.files[0]);
+	// 	//}
+	// });
+
 	/////////////////
 	jQuery(".scwspd_uploadimage_button").click(function(){
 		var checkSize = jQuery(".scwspd_uploadimage_item").size();
@@ -60,10 +81,16 @@ jQuery(document).ready(function(){
 			"<input id='scwspd_uploadimage_file"+checkSize+"' type='file'>"+
 			"<span class='scwspd_uploadimage_delete'><img src='"+url+"images/delete-icon.png'></span>"+
 		"</div>");
-		
+	
+
+
 		jQuery("#scwspd_uploadimage_file"+checkSize).change(function(){
+			console.log(this);
+			console.log(this.files[0]);
 			if(this.files && this.files[0]){
+				
 				var reader = new FileReader();
+				console.log(reader);
 				reader.onload = function (e){
 					if( jQuery(".scwspd_image_right"+checkSize).size() > 0){
 						jQuery(".scwspd_image_right"+checkSize).children("img").attr("src", e.target.result);
