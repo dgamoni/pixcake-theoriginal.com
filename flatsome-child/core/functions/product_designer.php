@@ -37,7 +37,8 @@ function my_remove_variation_price() {
 } 
 
 function add_render_button(){
-  echo '<span class="scwspd_preview_content_use">Render Design</span>';
+  // echo '<span class="scwspd_preview_content_use">Render Design</span>';
+  echo '<span class="scwspd_preview_content_use">Add to Basket</span>';
 }
 /* remove single product sidebar */
 // function woocommerce_remove_sidebar_shop() {

@@ -75,7 +75,7 @@ Version: 3.0
   font-style: medium;
 }
 
-body{font-family:  "AzoSans-Regular",  sans-serif}
+body{font-family:  "AzoSans-Regular",  sans-serif;}
 .nav > li > a {font-family:  "AzoSans-Regular", sans-serif;}
 h1,h2,h3, .heading-font{font-family: "AzoSans-Regular", sans-serif;}
 h4,h5,h6, .heading-font{font-family: "coffee-tea-Medium", sans-serif;}
@@ -84,7 +84,7 @@ h4,h5,h6, .heading-font{font-family: "coffee-tea-Medium", sans-serif;}
 
 /* top bar */
 .header-top {
-	background-image: url("https://pixcake-theoriginal.com/wp-content/uploads/2017/11/bts-30px.svg");
+	background-image: url("https://pixcake-theoriginal.com/wp-content/uploads/2018/01/topbar-01.svg");
     background-color: #D51D5B!important;
 }
 
@@ -96,7 +96,15 @@ h4,h5,h6, .heading-font{font-family: "coffee-tea-Medium", sans-serif;}
 #footer .widget .is-divider { margin-top: .0em; margin: 5px!important;}
 #footer .widget>ul>li>a { padding: 5px 0; }
 
-
+.nav>li.header-newsletter-item {
+  background-color: #d51d5b;
+  padding-left: 6px;
+    padding-right: 6px;
+}
+.header-social-icons .social-icons {
+  background-color: #d51d5b;
+  padding: 5px;
+}
 
 
 @media only screen and (max-width: 48em) {
@@ -108,8 +116,12 @@ ul.product_list_widget li .scwspd_yourdesign_item img {
 	position: inherit;
 }
 
+.designer_enable .single_add_to_cart_button {
+    display: none;
+}
 .product-gallery .cart {
-    width: 60%;
+    /*width: 60%;*/
+    width: 22%;
     float: left;
 }
 .product-gallery .scwspd_preview_content_use {
