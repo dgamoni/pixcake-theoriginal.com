@@ -882,7 +882,7 @@ function scwspd_admin_edit_order( $item_id, $item, $product ){
 			$ctitle = $checkImg[3];
 			$qtys = $checkImg[2];
 			
-			//var_dump($checkImg);
+			var_dump($checkImg);
 
 			$designs .= "<div class='scwspd_yourdesign_item'>";
 			$checkdataimages = explode("#", $dataimages);
