@@ -227,6 +227,23 @@ jQuery(document).ready(function(){
 	});
 
 	////////////
+	// jQuery(".single_add_to_cart").click(function(){
+	// 	jQuery(".scwspd_text_right_delete").hide();
+	// 	jQuery(".scwspd_text_right_move").hide();
+	// 	jQuery(".scwspd_right_item_add").hide();
+	// 	jQuery(".ui-resizable-se").hide();
+	// 	jQuery(".scwspd_image_right").css("border", "none");
+
+	// 	html2canvas(jQuery(".smartcms_content_right"), {
+	// 		 onrendered: function(canvas){
+	// 			jQuery(".smartcms_firstimage").val(canvas.toDataURL("image/png"));
+	// 			renderSecondImage();
+	// 		 },
+	// 	  width: 510,
+	// 	  height: 500
+	// 	});
+	// });
+
 	jQuery(".scwspd_preview_content_use").click(function(){
 		//jQuery(".smartcms_content_right").css("opacity", "0.5");
 		jQuery(".scwspd_text_right_delete").hide();
@@ -318,6 +335,17 @@ function uploadBlob(blobs, id){
 					// 		 qtys = label+"#"+input;
 					//  }
 				 // });
+				 jQuery(".scwspd_qty_item_radio").each(function(){
+				 	if(jQuery(this).prop("checked")){
+				 		//console.log(jQuery(this));
+				 		//console.log(jQuery(this).siblings('.scwspd_qty_radio_label').text());
+				 	  var label = jQuery(this).siblings('.scwspd_qty_radio_label').text();
+					  var input = jQuery(this).next('.scwspd_qty_item_input').val();
+					 		qtys = label+"#"+input;
+
+				 	}
+				 });
+				 
 				 
 				 // var dulieu = fimage+"#"+canvas2.toDataURL("image/png")+"@"+color+"@"+qtys+"@"+title;
 				
@@ -332,7 +360,7 @@ function uploadBlob(blobs, id){
 		            uploadBlob(blob);
 		            var file_pdf = jQuery(".smartcms_pdf").val();
 
-		            var dulieu = "#"+fimage+"@"+file_pdf;
+		            var dulieu = "#"+fimage+"@"+file_pdf+"@"+qtys;
  					//var dulieu = "#"+fimage;
 
 		            //console.log(uploadBlob(blob));

@@ -557,7 +557,7 @@ function smartcms_scwspd_fontend_single(){
 							<div class="scwspd_qty_item">
   								<input class="checkbox scwspd_qty_item_radio" id="scwspd_qty_item_radio<?php echo $key ?>" type="radio" name="radio" <?php if($key==0) echo 'checked'; ?> >
 								<input id="scwspd_qty_item<?php echo $key ?>" class="scwspd_qty_item_input" value="<?php echo $qty->price ?>">
-								<label for="scwspd_qty_item<?php echo $key ?>"><?php echo $qty->label ?></label>
+								<label class="scwspd_qty_radio_label" for="scwspd_qty_item<?php echo $key ?>"><?php echo $qty->label ?></label>
 							</div>
 							<?php
 						}
@@ -571,13 +571,15 @@ function smartcms_scwspd_fontend_single(){
 						<img class="scwspd_header_img" src="<?php echo SMARTCMS_SCWSPD_URL ?>images/preview-icon.png">
 						<span class="scwspd_header_text">Review</span>
 					</div> -->
+
 					<div class="scwspd_preview_content">
-						<span class="scwspd_preview_content_use">Render Design</span>
+						<!-- <span class="scwspd_preview_content_use">Render Design</span> -->
 					</div>
+					
 					<div class="scwspd_preview_items">
 					<?php //unset($_SESSION["scwspdimages".$proId]);
-//var_dump($_SESSION);
-						if(isset($_SESSION["scwspdimages".$proId])){
+//var_dump($_SESSION["scwspdimages".$proId]);
+						if(isset($_SESSION["scwspdimages".$proId]) && $_SESSION["scwspdimages".$proId] !=""){
 							$secimages = $_SESSION["scwspdimages".$proId];
 							//var_dump( $secimages );
 							$scwspdimages = explode("$", $secimages);
@@ -683,6 +685,9 @@ function scwspd_product_image( $_product_img, $cart_item, $cart_item_key ){
 	wp_register_style('scwspd-style-cart', SMARTCMS_SCWSPD_URL .'css/cart.css');
 	wp_enqueue_style('scwspd-style-cart');
 		
+		global $woocommerce;
+    $currency = get_woocommerce_currency_symbol();
+
 	$designs = '';
 	if(isset($_SESSION["scwspdimages".$proId])){
 		$designs .= '<a class="scwspd_yourdesign">Your Design</a><br>';
@@ -694,6 +699,7 @@ function scwspd_product_image( $_product_img, $cart_item, $cart_item_key ){
 			$ccolor = $checkImg[1];
 			$ctitle = $checkImg[3];
 			$qtys = $checkImg[2];
+			//var_dump($ctitle);
 			
 			$designs .= "<div class='scwspd_yourdesign_item'>";
 			$checkdataimages = explode("#", $dataimages);
@@ -709,7 +715,7 @@ function scwspd_product_image( $_product_img, $cart_item, $cart_item_key ){
 			//$designs .= "<span class='scwspd_yourdesign_item_color' style='background: ".$ccolor."'>".$ccolor."</span>";
 			$checkQtys = explode("&", $qtys);
 			foreach($checkQtys as $qty){
-				$designs .= "<br><span class='scwspd_yourdesign_item_qty'>". str_replace("#", " - ", $qty) ."</span>";
+				$designs .= "<span class='scwspd_yourdesign_item_qty'>Pack:". str_replace("#", " - ", $qty) .$currency."</span>";
 			}
 			$designs .= '</div>';
 		}
@@ -721,7 +727,7 @@ function scwspd_product_image( $_product_img, $cart_item, $cart_item_key ){
 }
 add_filter( 'woocommerce_cart_item_thumbnail', 'scwspd_product_image', 10, 3 );
 
-//add_action( 'woocommerce_before_calculate_totals', 'scwspd_add_custom_price' );
+add_action( 'woocommerce_before_calculate_totals', 'scwspd_add_custom_price' );
 function scwspd_add_custom_price( $cart_object ){
 	global $wpdb;
 	
@@ -743,9 +749,10 @@ function scwspd_add_custom_price( $cart_object ){
 					
 					$tableName = $wpdb->prefix . 'scwspd_quantity';
 					$rs = $wpdb->get_results("SELECT * from $tableName where proId = '".$proId."' and label = '".$label."'");
-					$price = $rs[0]->price * $quantity;
+					$price = $rs[0]->price + $quantity;
 					
-					$value['data']->price += $price;
+					//$value['data']->price += $price;
+					$value['data']->price = $quantity;
 				}
 			}
 			$value['data']->set_price( $value['data']->price );
@@ -773,6 +780,9 @@ function scwspd_order_complete( $link, $item ){
 		wp_register_style('scwspd-style-order', SMARTCMS_SCWSPD_URL .'css/order.css');
 		wp_enqueue_style('scwspd-style-order');
 		
+			global $woocommerce;
+    $currency = get_woocommerce_currency_symbol();
+
 		if(isset($_SESSION["scwspdimages".$proId])){
 			$designs .= '<br><a class="scwspd_yourdesign">Your Design</a><br>';
 			$secimages = $_SESSION["scwspdimages".$proId];
@@ -795,7 +805,7 @@ function scwspd_order_complete( $link, $item ){
 				$designs .= "<span class='scwspd_yourdesign_item_color' style='background: ".$ccolor."'>".$ccolor."</span><br>";
 				$checkQtys = explode("&", $qtys);
 				foreach($checkQtys as $qty){
-					$designs .= "<br><span class='scwspd_yourdesign_item_qty'>". str_replace("#", " - ", $qty) ."</span>";
+					$designs .= "<br><span class='scwspd_yourdesign_item_qty'>Pack:". str_replace("#", " - ", $qty) .$currency."</span>";
 				}
 				$designs .= '</div>';
 			}
@@ -826,7 +836,10 @@ function scwspd_admin_edit_order( $item_id, $item, $product ){
 	
 	$orderTable = $wpdb->prefix . 'scwspd_order';
 	$orderdata = $wpdb->get_results("SELECT * from $orderTable where proId = ".$proId." and orderId = '".$orderKey."'");
-	
+
+	global $woocommerce;
+    $currency = get_woocommerce_currency_symbol();
+
 	$designs = "";
 	$data = $orderdata[0]->data;
 	if($data){
@@ -860,9 +873,9 @@ function scwspd_admin_edit_order( $item_id, $item, $product ){
 			$designs .='<a href="'.SMARTCMS_SCWSPD_URL.'upload/'.$ccolor.'" target="_blank" id="" title="PDF File">PDF file</a>';
 			//$designs .= "<br><br><span class='scwspd_yourdesign_item_title'>".$ctitle."</span>";
 			//$designs .= "<span class='scwspd_yourdesign_item_color' style='background: ".$ccolor."'>".$ccolor."</span><br>";
-			//$checkQtys = explode("&", $qtys);
+			$checkQtys = explode("&", $qtys);
 			foreach($checkQtys as $qty){
-				$designs .= "<br><span class='scwspd_yourdesign_item_qty'>". str_replace("#", " - ", $qty) ."</span>";
+				$designs .= "<br><span class='scwspd_yourdesign_item_qty'>Pack: ". str_replace("#", " - ", $qty) .$currency."</span>";
 			}
 			$designs .= '</div>';
 		}

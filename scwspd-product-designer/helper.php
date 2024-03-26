@@ -267,8 +267,10 @@ if($task == "add_image"){
 	// 		}
 	// 	}
 	// }
-	echo 1;
+	
 	$_SESSION["scwspdimages".$proid] = $newArr;
+	unset($_SESSION["scwspdimages".$proId]);
+	echo 1;
 	
 }elseif($task == "add_qty"){
 	$proId = $_POST["proId"];

@@ -27,10 +27,13 @@ function my_remove_variation_price() {
 	remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
   	
   	add_action( 'woocommerce_before_single_product_summary', 'woocommerce_template_single_add_to_cart', 25 );
+    add_action( 'woocommerce_before_single_product_summary', 'add_render_button', 26 );
   }
 } 
 
-
+function add_render_button(){
+  echo '<span class="scwspd_preview_content_use">Render Design</span>';
+}
 /* remove single product sidebar */
 // function woocommerce_remove_sidebar_shop() {
 //     if( is_product() )

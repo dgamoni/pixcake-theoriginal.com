@@ -88,26 +88,15 @@ h4,h5,h6, .heading-font{font-family: "coffee-tea-Medium", sans-serif;}
     background-color: #D51D5B!important;
 }
 
+/* footer */
+.is-divider {visibility: hidden;}
+#footer .menu-item a {color: black;}
+#footer .cat-item a {color: black;}
+#footer ul.menu>li+li, .widget>ul>li+li { border-top: 0px!important; }
+#footer .widget .is-divider { margin-top: .0em; margin: 5px!important;}
+#footer .widget>ul>li>a { padding: 5px 0; }
 
-/* Post slider HP */
-.recent-post-slider.design-4 .post-list-content .wp-post-title a {
-    color: #fff;
-    text-decoration: none;
-}
-.wp-sub-content {
-	color: #000;
-}
-.recent-post-slider.design-4 .wp-post-content a.readmorebtn {
-    color: #fff;
-    border-color: #fff;
-}
-.recent-post-slider .recentpost-categories ul.post-categories li:nth-child(4n+1) a {
-    background: #fff;
-	color: #23B3BE;
-}
-.recent-post-slider.design-4 .post-list-content .wp-medium-7 {
-    padding: 35px 35px 10px 15px;
-}
+
 
 
 @media only screen and (max-width: 48em) {
@@ -117,4 +106,14 @@ h4,h5,h6, .heading-font{font-family: "coffee-tea-Medium", sans-serif;}
 }
 ul.product_list_widget li .scwspd_yourdesign_item img {
 	position: inherit;
+}
+
+.product-gallery .cart {
+    width: 60%;
+    float: left;
+}
+.product-gallery .scwspd_preview_content_use {
+  line-height: 2.4em;
+    min-height: 2.5em;
+    padding: 0 1.2em;
 }

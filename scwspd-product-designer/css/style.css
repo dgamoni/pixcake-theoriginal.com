@@ -442,6 +442,7 @@ max-width: 50%;
 .scwspd_preview_item_left_quantity {
     float: left;
     width: 100%;
+    display: none;
 }
 .scwspd_preview_qty {
     float: left;
@@ -579,4 +580,10 @@ max-width: 50%;
 }
 .scwspd_header_text_descript2 {
     margin-bottom: 30px;
+}
+/*.mini_cart_item .amount {
+    display: none;
+}*/
+.woocommerce-mini-cart-item .quantity {
+    display: none;
 }
